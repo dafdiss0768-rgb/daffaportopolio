@@ -181,49 +181,150 @@
 }
 
 /* =========================
-   FIX MOBILE FOTO ONLY
+   MOBILE RESPONSIVE ONLY
 ========================= */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
-  /* WRAPPER FOTO */
-  .about-image-wrapper {
+  /* SECTION */
+  .about-me-section{
+    padding: 90px 6% 70px;
+    min-height: auto;
+  }
+
+  /* CONTAINER */
+  .about-container{
+    flex-direction: column;
+    gap: 60px;
+    text-align: center;
+  }
+
+  /* LEFT */
+  .about-left{
     width: 100%;
-    max-width: 280px;
-    height: 360px;
+  }
+
+  /* FOTO WRAPPER */
+  .about-image-wrapper{
+    width: 100%;
+    max-width: 290px;
+    height: 380px;
     margin: auto;
   }
 
   /* FOTO */
-  .about-image {
-    border-radius: 22px;
+  .about-image{
+    border-radius: 24px;
   }
 
-  /* BIAR FOTO GA KEPOTONG */
-  .about-image img {
+  .about-image img{
     object-fit: cover;
     object-position: center;
   }
 
-  /* EFEK 3 FOTO MOBILE */
-  .about-image-wrapper.active .clone1 {
-    transform: translate(-15px, 10px) rotate(-5deg);
-    opacity: 0.5;
+  /* EFEK CLONE */
+  .about-image-wrapper.active .clone1{
+    transform: translate(-14px, 10px) rotate(-5deg);
+    opacity: 0.45;
   }
 
-  .about-image-wrapper.active .clone2 {
-    transform: translate(15px, -10px) rotate(5deg);
-    opacity: 0.5;
+  .about-image-wrapper.active .clone2{
+    transform: translate(14px, -10px) rotate(5deg);
+    opacity: 0.45;
+  }
+
+  /* RIGHT */
+  .about-right{
+    width: 100%;
+  }
+
+  /* TAG */
+  .about-tag{
+    font-size: 12px;
+    letter-spacing: 4px;
+  }
+
+  /* TITLE */
+  .about-title{
+    font-size: 38px;
+    line-height: 1.2;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* DESC */
+  .about-desc{
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+  }
+
+  /* CARDS */
+  .about-cards{
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 35px;
+  }
+
+  /* CARD */
+  .about-card{
+    width: 100%;
+    max-width: 220px;
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .about-card h3{
+    font-size: 30px;
+  }
+
+  .about-card p{
+    font-size: 14px;
+  }
+
+  /* BUTTON */
+  .about-btn{
+    padding: 14px 30px;
+    font-size: 14px;
   }
 
 }
 
-/* EXTRA SMALL DEVICE */
-@media (max-width: 400px) {
+/* =========================
+   EXTRA SMALL DEVICE
+========================= */
 
-  .about-image-wrapper {
+@media (max-width: 480px){
+
+  .about-me-section{
+    padding: 80px 5% 60px;
+  }
+
+  .about-container{
+    gap: 45px;
+  }
+
+  .about-image-wrapper{
     max-width: 240px;
     height: 320px;
   }
 
-}       
+  .about-title{
+    font-size: 30px;
+  }
+
+  .about-desc{
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .about-card{
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .about-card h3{
+    font-size: 26px;
+  }
+
+}
