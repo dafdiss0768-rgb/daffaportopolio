@@ -322,15 +322,144 @@
   box-shadow: 0 10px 30px rgba(255,255,255,0.08);
 }
 
-/* MOBILE */
-@media(max-width: 768px){
+/* =========================
+   MOBILE CONTACT FIX
+========================= */
 
-  .contact-top h2{
-    font-size: 45px;
+@media(max-width:768px){
+
+  /* SECTION */
+  .contact-section{
+    min-height: auto;
+    padding: 90px 20px 70px;
+    overflow: hidden;
   }
 
+  /* TOP */
+  .contact-top{
+    margin-bottom: 45px;
+  }
+
+  .contact-top span{
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  .contact-top h2{
+    font-size: 38px;
+    line-height: 1.1;
+    margin-top: 12px;
+  }
+
+  .contact-top p{
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 16px;
+    padding: 0 5px;
+  }
+
+  /* CONTAINER */
+  .contact-container{
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  /* LEFT INFO */
+  .contact-info{
+    width: 100%;
+    min-width: 100%;
+    gap: 18px;
+  }
+
+  /* CARD */
+  .contact-card{
+    width: 100%;
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .contact-card::after{
+    border-radius: 20px;
+  }
+
+  .contact-card h3{
+    font-size: 19px;
+    margin-bottom: 8px;
+  }
+
+  .contact-card p{
+    font-size: 14px;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+
+  /* FORM */
+  .contact-form{
+    width: 100%;
+    padding: 24px;
+    gap: 18px;
+
+    border-radius: 24px;
+  }
+
+  .contact-form::after{
+    border-radius: 22px;
+  }
+
+  /* INPUT */
+  .input-group input,
+  .input-group textarea{
+    padding: 16px 18px;
+    border-radius: 16px;
+
+    font-size: 14px;
+  }
+
+  .input-group textarea{
+    height: 150px;
+  }
+
+  /* BUTTON */
+  .contact-btn{
+    height: 56px;
+    border-radius: 16px;
+
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .contact-btn:hover{
+    transform: scale(1.02);
+  }
+
+}
+
+/* =========================
+   EXTRA SMALL DEVICE
+========================= */
+
+@media(max-width:480px){
+
   .contact-section{
-    padding: 100px 6%;
+    padding: 80px 16px 60px;
+  }
+
+  .contact-top h2{
+    font-size: 32px;
+  }
+
+  .contact-card{
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .contact-form{
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .input-group textarea{
+    height: 130px;
   }
 
 }
