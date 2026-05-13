@@ -384,17 +384,49 @@
 }
 
 /* =========================
-   MOBILE
+   MOBILE FIX SHOWCASE
 ========================= */
 
 @media(max-width:768px){
 
-  .grid-title h2{
-    font-size: 42px;
+  /* SECTION */
+  .showcase-section{
+    min-height: auto;
+    padding: 60px 0;
   }
 
+  /* PAGE */
+  .showcase-page{
+    min-height: auto;
+    padding: 90px 20px 60px;
+    justify-content: flex-start;
+  }
+
+  /* TITLE */
+  .grid-title{
+    margin-bottom: 35px;
+  }
+
+  .grid-title span{
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  .grid-title h2{
+    font-size: 38px;
+    line-height: 1.1;
+    margin-top: 12px;
+  }
+
+  /* GRID */
   .modern-grid{
     grid-template-columns: 1fr;
+    grid-auto-rows: 230px;
+    gap: 16px;
+  }
+
+  .modern-card{
+    border-radius: 24px;
   }
 
   .modern-card.tall,
@@ -403,18 +435,125 @@
     grid-row: span 1;
   }
 
+  /* SECRET CARD */
   .secret-photo-card{
     height: 260px;
+    border-radius: 28px;
+  }
+
+  .secret-overlay{
+    padding: 25px;
+  }
+
+  .secret-overlay span{
+    font-size: 11px;
+    letter-spacing: 3px;
   }
 
   .secret-overlay h2{
-    font-size: 36px;
+    font-size: 34px;
+    line-height: 1.1;
+    margin-top: 8px;
   }
 
+  /* ARROW */
   .showcase-arrow{
-    width: 55px;
-    height: 55px;
-    font-size: 22px;
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+
+    top: auto;
+    bottom: 20px;
+
+    transform: none;
+  }
+
+  .showcase-arrow:hover{
+    transform: scale(1.08);
+  }
+
+  .showcase-arrow.left{
+    left: 20px;
+  }
+
+  .showcase-arrow.right{
+    right: 20px;
+  }
+
+  /* POPUP */
+  .secret-popup{
+    padding: 20px;
+  }
+
+  .secret-popup-box{
+    width: 100%;
+    max-width: 340px;
+
+    border-radius: 24px;
+    padding: 30px 22px;
+  }
+
+  .secret-popup-box h2{
+    font-size: 26px;
+  }
+
+  .secret-popup-box input{
+    height: 52px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+
+  .secret-popup-box button{
+    height: 52px;
+    border-radius: 14px;
+  }
+
+  /* GALLERY */
+  .secret-gallery{
+    padding: 90px 20px 40px;
+  }
+
+  .secret-gallery-top{
+    margin-bottom: 30px;
+  }
+
+  .secret-gallery-top h2{
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .gallery-close{
+    top: 20px;
+    right: 20px;
+
+    width: 48px;
+    height: 48px;
+  }
+
+  .secret-scroll-gallery{
+    height: 75vh;
+    padding-right: 2px;
+  }
+
+  .secret-grid{
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .secret-item{
+    height: 220px;
+    border-radius: 20px;
+  }
+
+  .download-btn{
+    left: 12px;
+    bottom: 12px;
+
+    padding: 10px 14px;
+    font-size: 13px;
+
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
   }
 
 }
