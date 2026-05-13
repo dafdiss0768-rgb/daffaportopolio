@@ -12,3 +12,9 @@ imageWrapper.addEventListener("mouseleave", () => {
 imageWrapper.addEventListener("click", () => {
   imageWrapper.classList.toggle("active");
 });
+
+const aboutWrapper = document.querySelector(".about-image-wrapper");
+
+aboutWrapper.addEventListener("click", () => {
+  aboutWrapper.classList.toggle("active");
+});
