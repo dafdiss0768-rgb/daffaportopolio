@@ -2,8 +2,8 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Design Gallery</title>
 
@@ -14,6 +14,10 @@
       padding:0;
       box-sizing:border-box;
       font-family:sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
     }
 
     body{
@@ -38,9 +42,11 @@
       top:0;
       left:0;
 
-      background:rgba(17,17,17,0.9);
+      background:rgba(17,17,17,0.85);
 
-      backdrop-filter:blur(10px);
+      backdrop-filter:blur(12px);
+
+      border-bottom:1px solid rgba(255,255,255,0.05);
 
       z-index:1000;
     }
@@ -49,22 +55,45 @@
       font-size:22px;
       font-weight:bold;
       letter-spacing:2px;
+
+      background:linear-gradient(90deg,#ffffff,#8b5cf6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
     .menu{
       display:flex;
-      gap:20px;
+      gap:22px;
     }
 
     .menu a{
       color:white;
       text-decoration:none;
       font-size:14px;
+      position:relative;
+      transition:0.3s;
+    }
+
+    .menu a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-5px;
+
+      width:0%;
+      height:2px;
+
+      background:#8b5cf6;
+
       transition:0.3s;
     }
 
     .menu a:hover{
       color:#8b5cf6;
+    }
+
+    .menu a:hover::after{
+      width:100%;
     }
 
     /* =========================
@@ -73,21 +102,27 @@
 
     .container{
       width:100%;
-      padding:120px 8% 60px;
+      padding:130px 8% 70px;
     }
 
     .title{
-      margin-bottom:35px;
+      margin-bottom:50px;
+      animation:fadeUp 1s ease;
     }
 
     .title h1{
-      font-size:48px;
-      margin-bottom:10px;
+      font-size:52px;
+      margin-bottom:12px;
+
+      background:linear-gradient(90deg,#fff,#8b5cf6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
     .title p{
       color:#aaa;
-      line-height:1.7;
+      line-height:1.8;
+      max-width:700px;
     }
 
     /* =========================
@@ -98,24 +133,113 @@
       display:grid;
 
       grid-template-columns:
-      repeat(auto-fit,minmax(280px,1fr));
+      repeat(auto-fit,minmax(320px,1fr));
 
-      gap:20px;
+      gap:25px;
     }
 
-    .gallery img{
+    .video-card{
+      position:relative;
+
+      overflow:hidden;
+
+      border-radius:22px;
+
+      background:#151515;
+
+      border:1px solid rgba(255,255,255,0.05);
+
+      transition:0.5s ease;
+
+      opacity:0;
+      transform:translateY(40px);
+    }
+
+    .video-card:hover{
+      transform:translateY(-10px);
+
+      box-shadow:
+      0 15px 40px rgba(139,92,246,0.25);
+    }
+
+    .video-card video{
       width:100%;
       height:100%;
 
+      display:block;
+
       object-fit:cover;
 
-      border-radius:18px;
-
-      transition:0.5s ease;
+      border-radius:22px;
     }
 
-    .gallery img:hover{
-      transform:scale(1.03);
+    .video-overlay{
+      position:absolute;
+      bottom:0;
+      left:0;
+
+      width:100%;
+
+      padding:20px;
+
+      background:linear-gradient(
+      to top,
+      rgba(0,0,0,0.9),
+      transparent
+      );
+
+      opacity:0;
+
+      transition:0.4s;
+    }
+
+    .video-card:hover .video-overlay{
+      opacity:1;
+    }
+
+    .video-overlay h3{
+      font-size:18px;
+      margin-bottom:5px;
+    }
+
+    .video-overlay p{
+      font-size:13px;
+      color:#ccc;
+    }
+
+    /* =========================
+       SCROLLBAR
+    ========================= */
+
+    ::-webkit-scrollbar{
+      width:8px;
+    }
+
+    ::-webkit-scrollbar-track{
+      background:#111;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#8b5cf6;
+      border-radius:20px;
+    }
+
+    /* =========================
+       ANIMATION
+    ========================= */
+
+    @keyframes fadeUp{
+
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
     }
 
     /* =========================
@@ -133,7 +257,7 @@
       }
 
       .menu{
-        gap:12px;
+        gap:14px;
       }
 
       .menu a{
@@ -141,11 +265,11 @@
       }
 
       .container{
-        padding:100px 5% 40px;
+        padding:110px 5% 50px;
       }
 
       .title h1{
-        font-size:32px;
+        font-size:34px;
       }
 
       .title p{
@@ -154,11 +278,15 @@
 
       .gallery{
         grid-template-columns:1fr;
-        gap:16px;
+        gap:18px;
       }
 
-      .gallery img{
-        border-radius:14px;
+      .video-card{
+        border-radius:18px;
+      }
+
+      .video-card video{
+        border-radius:18px;
       }
 
     }
@@ -189,18 +317,88 @@
 
     <div class="title">
       <h1>Graphic Design Gallery</h1>
-      <p>Kumpulan desain terbaik saya.</p>
+      <p>
+        Kumpulan video desain dan karya editing terbaik saya
+        dengan tampilan modern, smooth, dan responsive.
+      </p>
     </div>
 
+    <!-- GALLERY -->
     <div class="gallery">
 
-      <img src="../Vid/dafa tugas (1).mp4">
-      <img src="../Vid/vide1 .mp4">
-      <img src="../Vid/vide2.mp4">
+      <!-- VIDEO 1 -->
+      <div class="video-card">
+
+        <video controls preload="metadata">
+          <source src="../Vid/dafa tugas (1).mp4" type="video/mp4">
+        </video>
+
+        <div class="video-overlay">
+          <h3>Creative Design</h3>
+          <p>Motion graphic & visual editing.</p>
+        </div>
+
+      </div>
+
+      <!-- VIDEO 2 -->
+      <div class="video-card">
+
+        <video controls preload="metadata">
+          <source src="../Vid/vide1 .mp4" type="video/mp4">
+        </video>
+
+        <div class="video-overlay">
+          <h3>Modern Editing</h3>
+          <p>Creative visual cinematic style.</p>
+        </div>
+
+      </div>
+
+      <!-- VIDEO 3 -->
+      <div class="video-card">
+
+        <video controls preload="metadata">
+          <source src="../Vid/vide2.mp4" type="video/mp4">
+        </video>
+
+        <div class="video-overlay">
+          <h3>Motion Design</h3>
+          <p>Smooth animation showcase.</p>
+        </div>
+
+      </div>
 
     </div>
 
   </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    const cards = document.querySelectorAll(".video-card");
+
+    const observer = new IntersectionObserver((entries)=>{
+
+      entries.forEach((entry)=>{
+
+        if(entry.isIntersecting){
+
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0px)";
+
+        }
+
+      });
+
+    },{threshold:0.2});
+
+    cards.forEach((card)=>{
+
+      observer.observe(card);
+
+    });
+
+  </script>
 
 </body>
 
