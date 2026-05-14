@@ -44,6 +44,12 @@
   margin-bottom: 25px;
 }
 
+.project-link{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .grid-project-left p{
   color: #b3b3b3;
   line-height: 1.8;
