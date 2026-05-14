@@ -101,11 +101,121 @@
 
     <div class="gallery">
 
-      <img src="..img/14_20260514_092735_0000.png">
-      <img src="..img/Iduladha_20260514_100022_0000.png">
-      <img src="..img/file_000000002394720b9638c022a84dd746.png">
-      <img src="..img/file_0000000024fc720b884e00bc88beabcc.png">
+      <!DOCTYPE html>
+<html lang="id">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Design Gallery</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:sans-serif;
+    }
+
+    body{
+      background:#0f0f0f;
+      color:white;
+    }
+
+    /* NAVBAR */
+    .navbar{
+      width:100%;
+      padding:20px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      left:0;
+      background:#111;
+      z-index:1000;
+    }
+
+    .logo{
+      font-size:22px;
+      font-weight:bold;
+    }
+
+    .menu{
+      display:flex;
+      gap:20px;
+    }
+
+    .menu a{
+      color:white;
+      text-decoration:none;
+    }
+
+    /* CONTENT */
+    .container{
+      padding:120px 8% 50px;
+    }
+
+    .title{
+      margin-bottom:30px;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .gallery img{
+      width:100%;
+      border-radius:14px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+
+    <div class="logo">
+      DAFFAIZAL
+    </div>
+
+    <div class="menu">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#project">Project</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="container">
+
+    <div class="title">
+      <h1>Graphic Design Gallery</h1>
+      <p>Kumpulan desain terbaik saya.</p>
+    </div>
+
+    <div class="gallery">
+
+      <img src="../img/14_20260514_092735_0000.png">
+      <img src="../img/Iduladha_20260514_100022_0000.png">
+      <img src="../img/file_000000002394720b9638c022a84dd746.png">
+      <img src="../img/file_0000000024fc720b884e00bc88beabcc.png">
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
     </div>
 
   </div>
