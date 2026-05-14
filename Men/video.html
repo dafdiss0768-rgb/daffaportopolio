@@ -42,11 +42,11 @@
       top:0;
       left:0;
 
-      background:rgba(17,17,17,0.88);
+      background:rgba(17,17,17,0.9);
 
       backdrop-filter:blur(14px);
 
-      border-bottom:1px solid rgba(255,255,255,0.06);
+      border-bottom:1px solid rgba(255,255,255,0.05);
 
       z-index:1000;
     }
@@ -129,7 +129,7 @@
       display:grid;
 
       grid-template-columns:
-      repeat(auto-fit,minmax(320px,1fr));
+      repeat(auto-fit,minmax(350px,1fr));
 
       gap:25px;
     }
@@ -158,17 +158,18 @@
       0 15px 35px rgba(139,92,246,0.22);
     }
 
+    /* VIDEO */
     .video-card video{
       width:100%;
-      aspect-ratio:9/16;
+      height:auto;
 
       display:block;
 
-      object-fit:cover;
+      background:black;
 
       border-radius:24px;
 
-      background:black;
+      object-fit:contain;
     }
 
     .video-overlay{
@@ -287,14 +288,20 @@
       }
 
       .video-card{
-        border-radius:20px;
+        border-radius:18px;
       }
 
+      /* PENTING */
       .video-card video{
-        border-radius:20px;
-        aspect-ratio:9/16;
+        border-radius:18px;
+
+        width:100%;
+        height:auto;
+
+        object-fit:contain;
       }
 
+      /* overlay selalu muncul di mobile */
       .video-overlay{
         opacity:1;
         padding:18px;
@@ -335,12 +342,14 @@
   <div class="container">
 
     <div class="title">
+
       <h1>Graphic Design Gallery</h1>
 
       <p>
         Kumpulan video desain dan karya editing terbaik saya
-        dengan tampilan modern, smooth, clean, dan responsive.
+        dengan tampilan modern, clean, smooth, dan responsive.
       </p>
+
     </div>
 
     <!-- GALLERY -->
@@ -349,8 +358,16 @@
       <!-- VIDEO 1 -->
       <div class="video-card">
 
-        <video controls preload="metadata">
-          <source src="../Vid/dafa tugas (1).mp4" type="video/mp4">
+        <video
+          controls
+          preload="metadata"
+          controlsList="nodownload"
+          playsinline>
+
+          <source
+          src="../Vid/dafa tugas (1).mp4"
+          type="video/mp4">
+
         </video>
 
         <div class="video-overlay">
@@ -363,8 +380,16 @@
       <!-- VIDEO 2 -->
       <div class="video-card">
 
-        <video controls preload="metadata">
-          <source src="../Vid/vide1 .mp4" type="video/mp4">
+        <video
+          controls
+          preload="metadata"
+          controlsList="nodownload"
+          playsinline>
+
+          <source
+          src="../Vid/vide1 .mp4"
+          type="video/mp4">
+
         </video>
 
         <div class="video-overlay">
@@ -377,8 +402,16 @@
       <!-- VIDEO 3 -->
       <div class="video-card">
 
-        <video controls preload="metadata">
-          <source src="../Vid/vide2.mp4" type="video/mp4">
+        <video
+          controls
+          preload="metadata"
+          controlsList="nodownload"
+          playsinline>
+
+          <source
+          src="../Vid/vide2.mp4"
+          type="video/mp4">
+
         </video>
 
         <div class="video-overlay">
@@ -395,16 +428,19 @@
   <!-- JAVASCRIPT -->
   <script>
 
-    const cards = document.querySelectorAll(".video-card");
+    const cards =
+    document.querySelectorAll(".video-card");
 
-    const observer = new IntersectionObserver((entries)=>{
+    const observer =
+    new IntersectionObserver((entries)=>{
 
       entries.forEach((entry)=>{
 
         if(entry.isIntersecting){
 
           entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0px)";
+          entry.target.style.transform =
+          "translateY(0px)";
 
         }
 
