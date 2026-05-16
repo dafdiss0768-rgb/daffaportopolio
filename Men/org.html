@@ -84,7 +84,7 @@
 
     .menu a:hover{
 
-      color:#7afcff;
+      color:#8b5cf6;
     }
 
     /* =========================
@@ -159,7 +159,7 @@
       translateY(-8px);
 
       box-shadow:
-      0 15px 40px rgba(122,252,255,0.18);
+      0 15px 40px rgba(139,92,246,0.18);
     }
 
     .photo-card img{
@@ -228,6 +228,7 @@
       align-items:center;
 
       user-select:none;
+      touch-action:none;
     }
 
     /* BULAT */
@@ -241,8 +242,8 @@
 
       background:linear-gradient(
       135deg,
-      #7afcff,
-      #9d7bff
+      #8b5cf6,
+      #6d28d9
       );
 
       display:flex;
@@ -260,7 +261,7 @@
       z-index:2;
 
       box-shadow:
-      0 10px 30px rgba(122,252,255,0.25);
+      0 10px 30px rgba(139,92,246,0.3);
 
       animation:float 3s ease infinite;
 
@@ -305,33 +306,12 @@
 
     .music-panel.active{
 
-      width:230px;
+      width:220px;
 
       padding:
       16px 18px 16px 30px;
 
       opacity:1;
-    }
-
-    /* INFO */
-
-    .music-info{
-
-      margin-bottom:15px;
-    }
-
-    .music-info h3{
-
-      font-size:16px;
-
-      margin-bottom:4px;
-    }
-
-    .music-info p{
-
-      font-size:12px;
-
-      color:#aaa;
     }
 
     /* CONTROLS */
@@ -354,8 +334,8 @@
 
       background:linear-gradient(
       135deg,
-      #7afcff,
-      #9d7bff
+      #8b5cf6,
+      #6d28d9
       );
 
       color:white;
@@ -424,7 +404,7 @@
 
     ::-webkit-scrollbar-thumb{
 
-      background:#7afcff;
+      background:#8b5cf6;
 
       border-radius:20px;
     }
@@ -487,18 +467,18 @@
 
       .music-panel.active{
 
-        width:210px;
+        width:190px;
 
         padding:
-        14px 15px 14px 24px;
+        14px 15px 14px 22px;
       }
 
       .music-controls button{
 
-        width:44px;
-        height:44px;
+        width:42px;
+        height:42px;
 
-        font-size:16px;
+        font-size:15px;
       }
 
     }
@@ -743,7 +723,7 @@
       const rect =
       widget.getBoundingClientRect();
 
-      // JIKA DI KIRI
+      // KIRI
 
       if(rect.left <
       window.innerWidth / 2){
@@ -758,7 +738,7 @@
         "0 22px 22px 0";
       }
 
-      // JIKA DI KANAN
+      // KANAN
 
       else{
 
@@ -781,17 +761,14 @@
     const songs = [
 
       {
-        title:"Lagu 1",
         src:"../music/lagu1.mp3"
       },
 
       {
-        title:"Lagu 2",
         src:"../music/lagu2.mp3"
       },
 
       {
-        title:"Lagu 3",
         src:"../music/lagu3.mp3"
       }
 
@@ -813,18 +790,10 @@
     const prevBtn =
     document.getElementById("prevBtn");
 
-    const songTitle =
-    document.getElementById("songTitle");
-
-    // LOAD SONG
-
     function loadSong(index){
 
       audio.src =
       songs[index].src;
-
-      songTitle.innerHTML =
-      songs[index].title;
     }
 
     loadSong(currentSong);
@@ -852,7 +821,7 @@
 
     };
 
-    // NEXT SONG
+    // NEXT
 
     nextBtn.onclick = ()=>{
 
@@ -872,7 +841,7 @@
       isPlaying = true;
     };
 
-    // PREV SONG
+    // PREV
 
     prevBtn.onclick = ()=>{
 
@@ -911,93 +880,105 @@
     });
 
     // =========================
-    // DRAG PLAYER
+    // DRAG SYSTEM FIX
     // =========================
 
-    let dragging = false;
+    let isDragging = false;
 
-    let offsetX, offsetY;
+    let startX = 0;
+    let startY = 0;
 
-    // DESKTOP
+    widget.addEventListener("mousedown",startDrag);
+    widget.addEventListener("touchstart",startDrag);
 
-    widget.addEventListener("mousedown",(e)=>{
+    function startDrag(e){
 
-      dragging = true;
+      isDragging = true;
 
-      offsetX =
-      e.clientX - widget.offsetLeft;
+      const clientX =
+      e.touches ?
+      e.touches[0].clientX :
+      e.clientX;
 
-      offsetY =
-      e.clientY - widget.offsetTop;
+      const clientY =
+      e.touches ?
+      e.touches[0].clientY :
+      e.clientY;
 
+      startX =
+      clientX - widget.offsetLeft;
+
+      startY =
+      clientY - widget.offsetTop;
+
+      widget.style.right = "auto";
+      widget.style.bottom = "auto";
+    }
+
+    document.addEventListener(
+    "mousemove",dragging);
+
+    document.addEventListener(
+    "touchmove",dragging,
+    {passive:false});
+
+    function dragging(e){
+
+      if(!isDragging) return;
+
+      e.preventDefault();
+
+      const clientX =
+      e.touches ?
+      e.touches[0].clientX :
+      e.clientX;
+
+      const clientY =
+      e.touches ?
+      e.touches[0].clientY :
+      e.clientY;
+
+      let x =
+      clientX - startX;
+
+      let y =
+      clientY - startY;
+
+      // BATAS LAYAR
+
+      const maxX =
+      window.innerWidth -
+      widget.offsetWidth;
+
+      const maxY =
+      window.innerHeight -
+      widget.offsetHeight;
+
+      if(x < 0) x = 0;
+      if(y < 0) y = 0;
+
+      if(x > maxX) x = maxX;
+      if(y > maxY) y = maxY;
+
+      widget.style.left =
+      x + "px";
+
+      widget.style.top =
+      y + "px";
+
+      updatePanelDirection();
+    }
+
+    document.addEventListener(
+    "mouseup",()=>{
+
+      isDragging = false;
     });
 
-    document.addEventListener("mousemove",(e)=>{
+    document.addEventListener(
+    "touchend",()=>{
 
-      if(dragging){
-
-        widget.style.left =
-        (e.clientX - offsetX) + "px";
-
-        widget.style.top =
-        (e.clientY - offsetY) + "px";
-
-        widget.style.right = "auto";
-
-        widget.style.bottom = "auto";
-
-        updatePanelDirection();
-      }
-
-    });
-
-    document.addEventListener("mouseup",()=>{
-
-      dragging = false;
-
-    });
-
-    // MOBILE TOUCH
-
-    widget.addEventListener("touchstart",(e)=>{
-
-      dragging = true;
-
-      offsetX =
-      e.touches[0].clientX -
-      widget.offsetLeft;
-
-      offsetY =
-      e.touches[0].clientY -
-      widget.offsetTop;
-
-    });
-
-    document.addEventListener("touchmove",(e)=>{
-
-      if(dragging){
-
-        widget.style.left =
-        (e.touches[0].clientX - offsetX)
-        + "px";
-
-        widget.style.top =
-        (e.touches[0].clientY - offsetY)
-        + "px";
-
-        widget.style.right = "auto";
-
-        widget.style.bottom = "auto";
-
-        updatePanelDirection();
-      }
-
-    });
-
-    document.addEventListener("touchend",()=>{
-
-      dragging = false;
-
+      isDragging = false;
     });
 
   </script>
