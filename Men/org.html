@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
 
   <title>Organisasi Gallery</title>
 
@@ -83,7 +84,7 @@
 
     .menu a:hover{
 
-      color:#8b5cf6;
+      color:#7afcff;
     }
 
     /* =========================
@@ -158,7 +159,7 @@
       translateY(-8px);
 
       box-shadow:
-      0 15px 40px rgba(139,92,246,0.2);
+      0 15px 40px rgba(122,252,255,0.18);
     }
 
     .photo-card img{
@@ -238,13 +239,19 @@
 
       border-radius:50%;
 
-      background:#8b5cf6;
+      background:linear-gradient(
+      135deg,
+      #7afcff,
+      #9d7bff
+      );
 
       display:flex;
       align-items:center;
       justify-content:center;
 
       font-size:28px;
+
+      color:white;
 
       cursor:pointer;
 
@@ -253,7 +260,7 @@
       z-index:2;
 
       box-shadow:
-      0 10px 30px rgba(139,92,246,0.35);
+      0 10px 30px rgba(122,252,255,0.25);
 
       animation:float 3s ease infinite;
 
@@ -281,12 +288,7 @@
       border:
       1px solid rgba(255,255,255,0.08);
 
-      border-left:none;
-
-      border-radius:
-      0 22px 22px 0;
-
-      margin-left:-18px;
+      border-radius:22px;
 
       padding:0;
 
@@ -297,11 +299,13 @@
       display:flex;
       flex-direction:column;
       justify-content:center;
+
+      margin-left:-18px;
     }
 
     .music-panel.active{
 
-      width:250px;
+      width:230px;
 
       padding:
       16px 18px 16px 30px;
@@ -309,25 +313,25 @@
       opacity:1;
     }
 
-    /* SELECT */
+    /* INFO */
 
-    #songSelect{
-
-      width:100%;
-
-      padding:12px;
-
-      border:none;
-
-      border-radius:12px;
-
-      background:#222;
-
-      color:white;
+    .music-info{
 
       margin-bottom:15px;
+    }
 
-      outline:none;
+    .music-info h3{
+
+      font-size:16px;
+
+      margin-bottom:4px;
+    }
+
+    .music-info p{
+
+      font-size:12px;
+
+      color:#aaa;
     }
 
     /* CONTROLS */
@@ -348,7 +352,11 @@
 
       border:none;
 
-      background:#8b5cf6;
+      background:linear-gradient(
+      135deg,
+      #7afcff,
+      #9d7bff
+      );
 
       color:white;
 
@@ -416,7 +424,7 @@
 
     ::-webkit-scrollbar-thumb{
 
-      background:#8b5cf6;
+      background:#7afcff;
 
       border-radius:20px;
     }
@@ -479,16 +487,16 @@
 
       .music-panel.active{
 
-        width:220px;
+        width:210px;
 
         padding:
-        14px 15px 14px 26px;
+        14px 15px 14px 24px;
       }
 
       .music-controls button{
 
-        width:45px;
-        height:45px;
+        width:44px;
+        height:44px;
 
         font-size:16px;
       }
@@ -619,35 +627,34 @@
        MUSIC PLAYER
   ========================= -->
 
-  <div class="music-widget" id="musicWidget">
+  <div class="music-widget"
+  id="musicWidget">
 
     <!-- BULAT -->
 
-    <div class="music-circle" id="togglePlayer">
-      🎵
+    <div class="music-circle"
+    id="togglePlayer">
+      ♫
     </div>
 
     <!-- PANEL -->
 
-    <div class="music-panel" id="musicPanel">
+    <div class="music-panel"
+    id="musicPanel">
 
-      <!-- SONG -->
+      <!-- INFO -->
 
-      <select id="songSelect">
+      <div class="music-info">
 
-        <option value="../music/lagu1.mp3">
+        <h3 id="songTitle">
           Lagu 1
-        </option>
+        </h3>
 
-        <option value="../music/lagu2.mp3">
-          Lagu 2
-        </option>
+        <p>
+          Now Playing
+        </p>
 
-        <option value="../music/lagu3.mp3">
-          Lagu 3
-        </option>
-
-      </select>
+      </div>
 
       <!-- CONTROLS -->
 
@@ -719,6 +726,9 @@
     const panel =
     document.getElementById("musicPanel");
 
+    const widget =
+    document.getElementById("musicWidget");
+
     let panelOpen = false;
 
     toggleBtn.onclick = ()=>{
@@ -729,6 +739,8 @@
 
         panel.classList.add("active");
 
+        updatePanelDirection();
+
       }else{
 
         panel.classList.remove("active");
@@ -737,14 +749,65 @@
     };
 
     // =========================
+    // AUTO PANEL POSITION
+    // =========================
+
+    function updatePanelDirection(){
+
+      const rect =
+      widget.getBoundingClientRect();
+
+      // JIKA DI KIRI
+
+      if(rect.left <
+      window.innerWidth / 2){
+
+        panel.style.order = "2";
+
+        panel.style.marginLeft = "-18px";
+
+        panel.style.marginRight = "0";
+
+        panel.style.borderRadius =
+        "0 22px 22px 0";
+      }
+
+      // JIKA DI KANAN
+
+      else{
+
+        panel.style.order = "0";
+
+        panel.style.marginLeft = "0";
+
+        panel.style.marginRight = "-18px";
+
+        panel.style.borderRadius =
+        "22px 0 0 22px";
+      }
+
+    }
+
+    // =========================
     // MUSIC PLAYER
     // =========================
 
     const songs = [
 
-      "../music/lagu1.mp3",
-      "../music/lagu2.mp3",
-      "../music/lagu3.mp3"
+      {
+        title:"Lagu 1",
+        src:"../music/lagu1.mp3"
+      },
+
+      {
+        title:"Lagu 2",
+        src:"../music/lagu2.mp3"
+      },
+
+      {
+        title:"Lagu 3",
+        src:"../music/lagu3.mp3"
+      }
 
     ];
 
@@ -764,16 +827,18 @@
     const prevBtn =
     document.getElementById("prevBtn");
 
-    const songSelect =
-    document.getElementById("songSelect");
+    const songTitle =
+    document.getElementById("songTitle");
 
     // LOAD SONG
 
     function loadSong(index){
 
-      audio.src = songs[index];
+      audio.src =
+      songs[index].src;
 
-      songSelect.selectedIndex = index;
+      songTitle.innerHTML =
+      songs[index].title;
     }
 
     loadSong(currentSong);
@@ -842,23 +907,6 @@
       isPlaying = true;
     };
 
-    // SELECT SONG
-
-    songSelect.addEventListener("change",()=>{
-
-      currentSong =
-      songSelect.selectedIndex;
-
-      loadSong(currentSong);
-
-      audio.play();
-
-      playBtn.innerHTML = "❚❚";
-
-      isPlaying = true;
-
-    });
-
     // AUTO NEXT
 
     audio.addEventListener("ended",()=>{
@@ -879,9 +927,6 @@
     // =========================
     // DRAG PLAYER
     // =========================
-
-    const widget =
-    document.getElementById("musicWidget");
 
     let dragging = false;
 
@@ -914,6 +959,8 @@
         widget.style.right = "auto";
 
         widget.style.bottom = "auto";
+
+        updatePanelDirection();
       }
 
     });
@@ -955,6 +1002,8 @@
         widget.style.right = "auto";
 
         widget.style.bottom = "auto";
+
+        updatePanelDirection();
       }
 
     });
