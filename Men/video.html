@@ -2,10 +2,17 @@
 <html lang="id">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Design Gallery</title>
+  <title>Daffaizal | Video Gallery</title>
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
 
@@ -13,7 +20,6 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:sans-serif;
     }
 
     html{
@@ -21,9 +27,36 @@
     }
 
     body{
-      background:#0f0f0f;
+      font-family:'Poppins',sans-serif;
+      background:#070707;
       color:white;
       overflow-x:hidden;
+    }
+
+    /* =========================
+       BACKGROUND
+    ========================= */
+
+    .blur{
+      position:fixed;
+      width:350px;
+      height:350px;
+      border-radius:50%;
+      filter:blur(120px);
+      opacity:0.45;
+      z-index:-1;
+    }
+
+    .blur1{
+      top:-120px;
+      left:-120px;
+      background:#8b5cf6;
+    }
+
+    .blur2{
+      bottom:-120px;
+      right:-120px;
+      background:#2563eb;
     }
 
     /* =========================
@@ -42,38 +75,46 @@
       top:0;
       left:0;
 
-      background:rgba(17,17,17,0.9);
+      background:rgba(10,10,10,0.7);
 
       backdrop-filter:blur(14px);
 
-      border-bottom:1px solid rgba(255,255,255,0.05);
+      border-bottom:
+      1px solid rgba(255,255,255,0.06);
 
       z-index:1000;
     }
 
     .logo{
-      font-size:22px;
+      font-size:24px;
       font-weight:700;
       letter-spacing:2px;
-      color:white;
+    }
+
+    .logo span{
+      color:#8b5cf6;
     }
 
     .menu{
       display:flex;
-      gap:22px;
+      gap:24px;
     }
 
     .menu a{
-      color:white;
+      color:#d4d4d4;
       text-decoration:none;
       font-size:14px;
+      font-weight:500;
+
       position:relative;
+
       transition:0.3s;
     }
 
     .menu a::after{
       content:"";
       position:absolute;
+
       left:0;
       bottom:-5px;
 
@@ -86,7 +127,7 @@
     }
 
     .menu a:hover{
-      color:#8b5cf6;
+      color:white;
     }
 
     .menu a:hover::after{
@@ -99,122 +140,209 @@
 
     .container{
       width:100%;
-      padding:130px 8% 70px;
+      padding:150px 8% 80px;
     }
 
     .title{
-      margin-bottom:45px;
+      margin-bottom:60px;
+      max-width:700px;
+
       animation:fadeUp 1s ease;
     }
 
     .title h1{
-      font-size:52px;
-      margin-bottom:12px;
-      color:white;
-      font-weight:700;
+      font-size:58px;
+      line-height:1.1;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .title h1 span{
+      color:#8b5cf6;
     }
 
     .title p{
       color:#b3b3b3;
-      line-height:1.8;
-      max-width:650px;
+      line-height:1.9;
       font-size:15px;
     }
 
     /* =========================
-       GALLERY
+       SECTION TITLE
     ========================= */
 
-    .gallery{
-      display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(350px,1fr));
-
-      gap:25px;
+    .section-title{
+      font-size:30px;
+      margin-bottom:28px;
+      font-weight:700;
     }
 
-    .video-card{
+    .section-title span{
+      color:#8b5cf6;
+    }
+
+    /* =========================
+       LANDSCAPE SLIDER
+    ========================= */
+
+    .slider-wrapper{
       position:relative;
+      width:100%;
+      margin-bottom:80px;
+    }
+
+    .landscape-slider{
+      width:100%;
+    }
+
+    .landscape-card{
+      display:none;
+
+      border-radius:28px;
 
       overflow:hidden;
 
-      border-radius:24px;
+      background:#111;
 
-      background:#151515;
+      border:
+      1px solid rgba(255,255,255,0.06);
 
-      border:1px solid rgba(255,255,255,0.05);
-
-      transition:0.45s ease;
-
-      opacity:0;
-      transform:translateY(40px);
+      animation:fade 0.4s ease;
     }
 
-    .video-card:hover{
-      transform:translateY(-8px);
-
-      box-shadow:
-      0 15px 35px rgba(139,92,246,0.22);
+    .landscape-card.active-slide{
+      display:block;
     }
 
-    /* VIDEO */
-    .video-card video{
+    .landscape-card video{
       width:100%;
-      height:auto;
+      aspect-ratio:16/9;
+
+      object-fit:cover;
 
       display:block;
-
-      background:black;
-
-      border-radius:24px;
-
-      object-fit:contain;
     }
 
-    .video-overlay{
-      position:absolute;
-      bottom:0;
-      left:0;
-
-      width:100%;
-
-      padding:22px;
-
-      background:linear-gradient(
-      to top,
-      rgba(0,0,0,0.92),
-      transparent
-      );
-
-      opacity:0;
-
-      transition:0.4s;
-    }
-
-    .video-card:hover .video-overlay{
-      opacity:1;
-    }
     /* =========================
-       SCROLLBAR
+       PORTRAIT
     ========================= */
 
-    ::-webkit-scrollbar{
-      width:8px;
+    .portrait-wrapper{
+      position:relative;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    ::-webkit-scrollbar-track{
+    .portrait-slider{
+      width:340px;
+    }
+
+    .portrait-card{
+      display:none;
+
+      border-radius:28px;
+
+      overflow:hidden;
+
       background:#111;
+
+      border:
+      1px solid rgba(255,255,255,0.06);
+
+      animation:fade 0.4s ease;
     }
 
-    ::-webkit-scrollbar-thumb{
+    .portrait-card.active-portrait{
+      display:block;
+    }
+
+    .portrait-card video{
+      width:100%;
+      aspect-ratio:9/16;
+
+      object-fit:cover;
+
+      display:block;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    .slider-btn{
+      position:absolute;
+      top:50%;
+
+      transform:translateY(-50%);
+
+      width:55px;
+      height:55px;
+
+      border:none;
+
+      border-radius:50%;
+
+      background:
+      rgba(255,255,255,0.12);
+
+      backdrop-filter:blur(10px);
+
+      color:white;
+
+      font-size:28px;
+
+      cursor:pointer;
+
+      z-index:10;
+
+      transition:0.3s ease;
+    }
+
+    .slider-btn:hover{
       background:#8b5cf6;
-      border-radius:20px;
+    }
+
+    .landscape-prev,
+    .portrait-prev{
+      left:-20px;
+    }
+
+    .landscape-next,
+    .portrait-next{
+      right:-20px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      text-align:center;
+      padding:70px 20px 30px;
+
+      color:#777;
+      font-size:14px;
     }
 
     /* =========================
        ANIMATION
     ========================= */
+
+    @keyframes fade{
+
+      from{
+        opacity:0;
+        transform:scale(0.98);
+      }
+
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+
+    }
 
     @keyframes fadeUp{
 
@@ -237,12 +365,11 @@
     @media(max-width:768px){
 
       .navbar{
-        padding:15px 5%;
+        padding:16px 5%;
       }
 
       .logo{
-        font-size:17px;
-        letter-spacing:1px;
+        font-size:18px;
       }
 
       .menu{
@@ -250,44 +377,47 @@
       }
 
       .menu a{
-        font-size:11px;
+        font-size:12px;
       }
 
       .container{
-        padding:95px 5% 45px;
+        padding:120px 5% 60px;
       }
 
       .title{
-        margin-bottom:30px;
+        margin-bottom:45px;
       }
 
       .title h1{
-        font-size:30px;
-        line-height:1.2;
+        font-size:38px;
       }
 
       .title p{
-        font-size:13px;
-        line-height:1.7;
+        font-size:14px;
       }
 
-      .gallery{
-        grid-template-columns:1fr;
-        gap:20px;
+      .section-title{
+        font-size:24px;
       }
 
-      .video-card{
-        border-radius:18px;
+      .portrait-slider{
+        width:260px;
       }
 
-      /* PENTING */
-      .video-card video{
-        border-radius:18px;
+      .slider-btn{
+        width:45px;
+        height:45px;
+        font-size:22px;
+      }
 
-        width:100%;
-        height:auto;
+      .landscape-prev,
+      .portrait-prev{
+        left:-10px;
+      }
 
-        object-fit:contain;
+      .landscape-next,
+      .portrait-next{
+        right:-10px;
       }
 
     }
@@ -298,11 +428,15 @@
 
 <body>
 
+  <!-- BACKGROUND -->
+  <div class="blur blur1"></div>
+  <div class="blur blur2"></div>
+
   <!-- NAVBAR -->
   <nav class="navbar">
 
     <div class="logo">
-      DAFFAIZAL
+      DAFFA<span>IZAL</span>
     </div>
 
     <div class="menu">
@@ -314,118 +448,276 @@
   </nav>
 
   <!-- CONTENT -->
-  <div class="container">
+  <section class="container">
 
     <div class="title">
 
-      <h1>Graphic Design Gallery</h1>
+      <h1>Video <span>Gallery</span></h1>
 
       <p>
-        Kumpulan video desain dan karya editing terbaik saya
-        dengan tampilan modern, clean, smooth, dan responsive.
+        Kumpulan video editing, cinematic,
+        motion graphic, dan visual kreatif
+        dengan tampilan modern, clean,
+        dan responsive.
       </p>
 
     </div>
 
-    <!-- GALLERY -->
-    <div class="gallery">
+    <!-- LANDSCAPE -->
+    <h2 class="section-title">
+      Landscape <span>Video</span>
+    </h2>
 
-      <!-- VIDEO 1 -->
-      <div class="video-card">
+    <div class="slider-wrapper">
 
-        <video
+      <!-- BUTTON -->
+      <button class="slider-btn landscape-prev">
+        ‹
+      </button>
+
+      <!-- SLIDER -->
+      <div class="landscape-slider">
+
+        <!-- VIDEO 1 -->
+        <div class="landscape-card active-slide">
+
+          <video
           controls
           preload="metadata"
-          controlsList="nodownload"
           playsinline>
 
-          <source
-          src="../Vid/dafa tugas (1).mp4"
-          type="video/mp4">
+            <source
+            src="../Vid/dafa tugas (1).mp4"
+            type="video/mp4">
 
-        </video>
-      </div>
+          </video>
 
-      <!-- VIDEO 2 -->
-      <div class="video-card">
+        </div>
 
-        <video
+        <!-- VIDEO 2 -->
+        <div class="landscape-card">
+
+          <video
           controls
           preload="metadata"
-          controlsList="nodownload"
           playsinline>
 
-          <source
-          src="../Vid/vide1 .mp4"
-          type="video/mp4">
+            <source
+            src="../Vid/vide1 .mp4"
+            type="video/mp4">
 
-        </video>
-      </div>
+          </video>
 
-      <!-- VIDEO 3 -->
-      <div class="video-card">
+        </div>
 
-        <video
+        <!-- VIDEO 3 -->
+        <div class="landscape-card">
+
+          <video
           controls
           preload="metadata"
-          controlsList="nodownload"
           playsinline>
 
-          <source
-          src="../Vid/vide2.mp4"
-          type="video/mp4">
+            <source
+            src="../Vid/Proyek Baru [28BD412] (1).mp4"
+            type="video/mp4">
 
-        </video>
+          </video>
+
+        </div>
+
       </div>
 
-     <!-- VIDEO 3 -->
-      <div class="video-card">
-
-        <video
-          controls
-          preload="metadata"
-          controlsList="nodownload"
-          playsinline>
-
-          <source
-          src="../Vid/Proyek Baru [28BD412] (1).mp4"
-          type="video/mp4">
-
-        </video>
-      </div>
+      <!-- BUTTON -->
+      <button class="slider-btn landscape-next">
+        ›
+      </button>
 
     </div>
 
-  </div>
+    <!-- PORTRAIT -->
+    <h2 class="section-title">
+      Portrait <span>Video</span>
+    </h2>
 
-  <!-- JAVASCRIPT -->
+    <div class="portrait-wrapper">
+
+      <!-- BUTTON -->
+      <button class="slider-btn portrait-prev">
+        ‹
+      </button>
+
+      <!-- SLIDER -->
+      <div class="portrait-slider">
+
+        <!-- VIDEO -->
+        <div class="portrait-card active-portrait">
+
+          <video
+          controls
+          preload="metadata"
+          playsinline>
+
+            <source
+            src="../Vid/vide2.mp4"
+            type="video/mp4">
+
+          </video>
+
+        </div>
+
+      </div>
+
+      <!-- BUTTON -->
+      <button class="slider-btn portrait-next">
+        ›
+
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Daffaizal Portfolio.
+    All Rights Reserved.
+  </footer>
+
+  <!-- SCRIPT -->
   <script>
 
-    const cards =
-    document.querySelectorAll(".video-card");
+    /* =========================
+       LANDSCAPE SLIDER
+    ========================= */
 
-    const observer =
-    new IntersectionObserver((entries)=>{
+    const landscapeSlides =
+    document.querySelectorAll(
+    ".landscape-card"
+    );
 
-      entries.forEach((entry)=>{
+    let landscapeIndex = 0;
 
-        if(entry.isIntersecting){
+    function showLandscape(index){
 
-          entry.target.style.opacity = "1";
-          entry.target.style.transform =
-          "translateY(0px)";
+      landscapeSlides.forEach((slide)=>{
 
-        }
+        slide.classList.remove(
+        "active-slide"
+        );
 
       });
 
-    },{threshold:0.2});
+      landscapeSlides[index]
+      .classList.add(
+      "active-slide"
+      );
 
-    cards.forEach((card)=>{
+    }
 
-      observer.observe(card);
+    document.querySelector(
+    ".landscape-next"
+    ).onclick = ()=>{
 
-    });
+      landscapeIndex++;
+
+      if(
+        landscapeIndex >=
+        landscapeSlides.length
+      ){
+        landscapeIndex = 0;
+      }
+
+      showLandscape(
+      landscapeIndex
+      );
+
+    };
+
+    document.querySelector(
+    ".landscape-prev"
+    ).onclick = ()=>{
+
+      landscapeIndex--;
+
+      if(landscapeIndex < 0){
+
+        landscapeIndex =
+        landscapeSlides.length - 1;
+
+      }
+
+      showLandscape(
+      landscapeIndex
+      );
+
+    };
+
+    /* =========================
+       PORTRAIT SLIDER
+    ========================= */
+
+    const portraitSlides =
+    document.querySelectorAll(
+    ".portrait-card"
+    );
+
+    let portraitIndex = 0;
+
+    function showPortrait(index){
+
+      portraitSlides.forEach((slide)=>{
+
+        slide.classList.remove(
+        "active-portrait"
+        );
+
+      });
+
+      portraitSlides[index]
+      .classList.add(
+      "active-portrait"
+      );
+
+    }
+
+    document.querySelector(
+    ".portrait-next"
+    ).onclick = ()=>{
+
+      portraitIndex++;
+
+      if(
+        portraitIndex >=
+        portraitSlides.length
+      ){
+        portraitIndex = 0;
+      }
+
+      showPortrait(
+      portraitIndex
+      );
+
+    };
+
+    document.querySelector(
+    ".portrait-prev"
+    ).onclick = ()=>{
+
+      portraitIndex--;
+
+      if(portraitIndex < 0){
+
+        portraitIndex =
+        portraitSlides.length - 1;
+
+      }
+
+      showPortrait(
+      portraitIndex
+      );
+
+    };
 
   </script>
 

@@ -2,10 +2,15 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Design Gallery</title>
+  <title>Daffaizal | Design Gallery</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
 
@@ -13,13 +18,44 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
     }
 
     body{
-      background:#0f0f0f;
+      font-family:'Poppins',sans-serif;
+      background:#0a0a0a;
       color:white;
       overflow-x:hidden;
+      min-height:100vh;
+    }
+
+    /* =========================
+       BACKGROUND BLUR
+    ========================= */
+
+    .bg-blur{
+      position:fixed;
+      width:350px;
+      height:350px;
+      border-radius:50%;
+      filter:blur(120px);
+      z-index:-1;
+      opacity:0.5;
+    }
+
+    .bg1{
+      top:-100px;
+      left:-100px;
+      background:#8b5cf6;
+    }
+
+    .bg2{
+      bottom:-100px;
+      right:-100px;
+      background:#2563eb;
     }
 
     /* =========================
@@ -38,33 +74,57 @@
       top:0;
       left:0;
 
-      background:rgba(17,17,17,0.9);
+      background:rgba(10,10,10,0.7);
 
-      backdrop-filter:blur(10px);
+      backdrop-filter:blur(12px);
+
+      border-bottom:1px solid rgba(255,255,255,0.08);
 
       z-index:1000;
     }
 
     .logo{
-      font-size:22px;
-      font-weight:bold;
+      font-size:24px;
+      font-weight:700;
       letter-spacing:2px;
+    }
+
+    .logo span{
+      color:#8b5cf6;
     }
 
     .menu{
       display:flex;
-      gap:20px;
+      align-items:center;
+      gap:24px;
     }
 
     .menu a{
-      color:white;
+      color:#d4d4d4;
       text-decoration:none;
       font-size:14px;
+      font-weight:500;
+      transition:0.3s ease;
+      position:relative;
+    }
+
+    .menu a::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:0%;
+      height:2px;
+      background:#8b5cf6;
       transition:0.3s;
     }
 
     .menu a:hover{
-      color:#8b5cf6;
+      color:white;
+    }
+
+    .menu a:hover::after{
+      width:100%;
     }
 
     /* =========================
@@ -73,21 +133,28 @@
 
     .container{
       width:100%;
-      padding:120px 8% 60px;
+      padding:150px 8% 70px;
     }
 
     .title{
-      margin-bottom:35px;
+      margin-bottom:50px;
+      max-width:700px;
     }
 
     .title h1{
-      font-size:48px;
-      margin-bottom:10px;
+      font-size:58px;
+      line-height:1.1;
+      margin-bottom:18px;
+    }
+
+    .title h1 span{
+      color:#8b5cf6;
     }
 
     .title p{
-      color:#aaa;
-      line-height:1.7;
+      color:#b0b0b0;
+      line-height:1.8;
+      font-size:15px;
     }
 
     /* =========================
@@ -100,22 +167,82 @@
       grid-template-columns:
       repeat(auto-fit,minmax(280px,1fr));
 
-      gap:20px;
+      gap:24px;
     }
 
-    .gallery img{
+    .card{
+      position:relative;
+      overflow:hidden;
+
+      border-radius:22px;
+
+      background:#111;
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      transition:0.4s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+
+      box-shadow:
+      0 20px 50px rgba(139,92,246,0.25);
+    }
+
+    .card img{
       width:100%;
       height:100%;
+      display:block;
 
       object-fit:cover;
-
-      border-radius:18px;
 
       transition:0.5s ease;
     }
 
-    .gallery img:hover{
-      transform:scale(1.03);
+    .card:hover img{
+      transform:scale(1.06);
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+
+      background:
+      linear-gradient(
+      to top,
+      rgba(0,0,0,0.8),
+      rgba(0,0,0,0.1)
+      );
+
+      display:flex;
+      align-items:end;
+
+      opacity:0;
+
+      transition:0.4s ease;
+
+      padding:20px;
+    }
+
+    .card:hover .overlay{
+      opacity:1;
+    }
+
+    .overlay h3{
+      font-size:18px;
+      font-weight:600;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      text-align:center;
+      padding:50px 20px 30px;
+      color:#777;
+      font-size:14px;
     }
 
     /* =========================
@@ -133,7 +260,7 @@
       }
 
       .menu{
-        gap:12px;
+        gap:14px;
       }
 
       .menu a{
@@ -141,11 +268,15 @@
       }
 
       .container{
-        padding:100px 5% 40px;
+        padding:120px 5% 50px;
+      }
+
+      .title{
+        margin-bottom:35px;
       }
 
       .title h1{
-        font-size:32px;
+        font-size:38px;
       }
 
       .title p{
@@ -154,11 +285,11 @@
 
       .gallery{
         grid-template-columns:1fr;
-        gap:16px;
+        gap:18px;
       }
 
-      .gallery img{
-        border-radius:14px;
+      .card{
+        border-radius:18px;
       }
 
     }
@@ -169,11 +300,15 @@
 
 <body>
 
+  <!-- BACKGROUND -->
+  <div class="bg-blur bg1"></div>
+  <div class="bg-blur bg2"></div>
+
   <!-- NAVBAR -->
   <nav class="navbar">
 
     <div class="logo">
-      DAFFAIZAL
+      DAFFA<span>IZAL</span>
     </div>
 
     <div class="menu">
@@ -185,24 +320,69 @@
   </nav>
 
   <!-- CONTENT -->
-  <div class="container">
+  <section class="container">
 
     <div class="title">
-      <h1>Graphic Design Gallery</h1>
-      <p>Kumpulan desain terbaik saya.</p>
+      <h1>Graphic Design <span>Gallery</span></h1>
+
+      <p>
+        Kumpulan beberapa hasil desain terbaik yang saya buat.
+        Mulai dari poster, branding, social media design,
+        hingga visual kreatif lainnya.
+      </p>
     </div>
 
+    <!-- GALLERY -->
     <div class="gallery">
 
-      <img src="../img/14_20260514_092735_0000.png">
-      <img src="../img/Iduladha_20260514_100022_0000.png">
-      <img src="../img/file_000000002394720b9638c022a84dd746.png">
-      <img src="../img/file_0000000024fc720b884e00bc88beabcc.png">
-      <img src="../img/Selamat Hari_20260514_170606_0000.png">
+      <div class="card">
+        <img src="../img/14_20260514_092735_0000.png">
+
+        <div class="overlay">
+          <h3>Creative Design</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/Iduladha_20260514_100022_0000.png">
+
+        <div class="overlay">
+          <h3>Social Media Poster</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/file_000000002394720b9638c022a84dd746.png">
+
+        <div class="overlay">
+          <h3>Modern Design</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/file_0000000024fc720b884e00bc88beabcc.png">
+
+        <div class="overlay">
+          <h3>Creative Poster</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/Selamat Hari_20260514_170606_0000.png">
+
+        <div class="overlay">
+          <h3>Visual Content</h3>
+        </div>
+      </div>
 
     </div>
 
-  </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Daffaizal Portfolio. All Rights Reserved.
+  </footer>
 
 </body>
 

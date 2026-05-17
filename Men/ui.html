@@ -1,0 +1,209 @@
+  <!DOCTYPE html>
+  <html lang="id">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Design Gallery</title>
+
+    <style>
+
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:sans-serif;
+      }
+
+      body{
+        background:#0f0f0f;
+        color:white;
+        overflow-x:hidden;
+      }
+
+      /* =========================
+        NAVBAR
+      ========================= */
+
+      .navbar{
+        width:100%;
+        padding:18px 8%;
+
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+
+        position:fixed;
+        top:0;
+        left:0;
+
+        background:rgba(17,17,17,0.9);
+
+        backdrop-filter:blur(10px);
+
+        z-index:1000;
+      }
+
+      .logo{
+        font-size:22px;
+        font-weight:bold;
+        letter-spacing:2px;
+      }
+
+      .menu{
+        display:flex;
+        gap:20px;
+      }
+
+      .menu a{
+        color:white;
+        text-decoration:none;
+        font-size:14px;
+        transition:0.3s;
+      }
+
+      .menu a:hover{
+        color:#8b5cf6;
+      }
+
+      /* =========================
+        CONTENT
+      ========================= */
+
+      .container{
+        width:100%;
+        padding:120px 8% 60px;
+      }
+
+      .title{
+        margin-bottom:35px;
+      }
+
+      .title h1{
+        font-size:48px;
+        margin-bottom:10px;
+      }
+
+      .title p{
+        color:#aaa;
+        line-height:1.7;
+      }
+
+      /* =========================
+        GALLERY
+      ========================= */
+
+      .gallery{
+        display:grid;
+
+        grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+
+        gap:20px;
+      }
+
+      .gallery img{
+        width:100%;
+        height:100%;
+
+        object-fit:cover;
+
+        border-radius:18px;
+
+        transition:0.5s ease;
+      }
+
+      .gallery img:hover{
+        transform:scale(1.03);
+      }
+
+      /* =========================
+        MOBILE
+      ========================= */
+
+      @media(max-width:768px){
+
+        .navbar{
+          padding:16px 5%;
+        }
+
+        .logo{
+          font-size:18px;
+        }
+
+        .menu{
+          gap:12px;
+        }
+
+        .menu a{
+          font-size:12px;
+        }
+
+        .container{
+          padding:100px 5% 40px;
+        }
+
+        .title h1{
+          font-size:32px;
+        }
+
+        .title p{
+          font-size:14px;
+        }
+
+        .gallery{
+          grid-template-columns:1fr;
+          gap:16px;
+        }
+
+        .gallery img{
+          border-radius:14px;
+        }
+
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+      <div class="logo">
+        DAFFAIZAL
+      </div>
+
+      <div class="menu">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#project">Project</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="container">
+
+      <div class="title">
+        <h1>Graphic Design Gallery</h1>
+        <p>Kumpulan desain terbaik saya.</p>
+      </div>
+
+      <div class="gallery">
+
+        <img src="../img/14_20260514_092735_0000.png">
+        <img src="../img/Iduladha_20260514_100022_0000.png">
+        <img src="../img/file_000000002394720b9638c022a84dd746.png">
+        <img src="../img/file_0000000024fc720b884e00bc88beabcc.png">
+        <img src="../img/Selamat Hari_20260514_170606_0000.png">
+
+      </div>
+
+    </div>
+
+  </body>
+
+  </html>
