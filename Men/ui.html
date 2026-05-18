@@ -1,116 +1,303 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0"/>
+
   <title>Sedang Proses</title>
 
+  <!-- FONT -->
+  <link rel="preconnect"
+  href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+  rel="stylesheet">
+
   <style>
+
     *{
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
     }
 
     body{
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #111827, #1f2937, #000);
-      overflow: hidden;
+
+      min-height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      overflow:hidden;
+
+      font-family:'Poppins',sans-serif;
+
+      background:
+      radial-gradient(circle at top left,
+      rgba(139,92,246,0.25),
+      transparent 40%),
+
+      radial-gradient(circle at bottom right,
+      rgba(37,99,235,0.25),
+      transparent 40%),
+
+      #050505;
+
+      position:relative;
     }
+
+    .blur{
+
+      position:absolute;
+
+      width:350px;
+      height:350px;
+
+      border-radius:50%;
+
+      filter:blur(120px);
+
+      opacity:0.5;
+
+      z-index:0;
+    }
+
+    .blur1{
+
+      top:-100px;
+      left:-100px;
+
+      background:#8b5cf6;
+    }
+
+    .blur2{
+
+      bottom:-100px;
+      right:-100px;
+
+      background:#2563eb;
+    }
+
 
     .box{
-      position: relative;
-      padding: 30px 60px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 0 30px rgba(0,255,255,0.2);
-      overflow: hidden;
+
+      position:relative;
+
+      z-index:2;
+
+      padding:45px 70px;
+
+      border-radius:30px;
+
+      background:
+      rgba(255,255,255,0.05);
+
+      backdrop-filter:blur(18px);
+
+      border:
+      1px solid rgba(255,255,255,0.08);
+
+      box-shadow:
+      0 20px 60px rgba(0,0,0,0.4);
+
+      overflow:hidden;
+
+      animation:
+      fadeUp 1s ease;
     }
 
+    /* SHINE */
+
     .box::before{
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(0,255,255,0.4),
-        transparent
+
+      content:"";
+
+      position:absolute;
+
+      top:-120%;
+      left:-40%;
+
+      width:80%;
+      height:300%;
+
+      background:
+      linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,0.12),
+      transparent
       );
-      animation: shine 4s linear infinite;
+
+      transform:rotate(25deg);
+
+      animation:
+      shine 5s linear infinite;
     }
 
     @keyframes shine{
+
       0%{
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        left:-60%;
       }
+
       100%{
-        transform: translateX(100%) translateY(100%) rotate(45deg);
+        left:140%;
       }
+
     }
 
     h1{
-      position: relative;
-      color: #fff;
-      font-size: 3rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      text-align: center;
-      animation: glow 2s ease-in-out infinite alternate;
-      z-index: 2;
+
+      position:relative;
+
+      z-index:2;
+
+      color:white;
+
+      font-size:58px;
+
+      font-weight:800;
+
+      letter-spacing:5px;
+
+      text-align:center;
+
+      text-transform:uppercase;
+
+      line-height:1.2;
+
+      animation:
+      glow 2s ease-in-out infinite alternate;
     }
+
+    h1 span{
+
+      color:#8b5cf6;
+    }
+
+    /* GLOW */
 
     @keyframes glow{
+
       from{
+
         text-shadow:
-          0 0 10px #00ffff,
-          0 0 20px #00ffff,
-          0 0 40px #00ffff;
+        0 0 10px rgba(139,92,246,0.5),
+        0 0 20px rgba(139,92,246,0.4);
       }
+
       to{
+
         text-shadow:
-          0 0 20px #00ffff,
-          0 0 40px #00ffff,
-          0 0 80px #00ffff;
+        0 0 20px rgba(139,92,246,0.9),
+        0 0 40px rgba(139,92,246,0.7);
       }
+
     }
 
+    /* DOTS */
+
     .dots::after{
-      content: "";
-      animation: dots 2s infinite;
+
+      content:"";
+
+      animation:dots 2s infinite;
     }
 
     @keyframes dots{
-      0%{ content: ""; }
-      25%{ content: "."; }
-      50%{ content: ".."; }
-      75%{ content: "..."; }
-      100%{ content: ""; }
+
+      0%{
+        content:"";
+      }
+
+      25%{
+        content:".";
+      }
+
+      50%{
+        content:"..";
+      }
+
+      75%{
+        content:"...";
+      }
+
+      100%{
+        content:"";
+      }
+
     }
 
-    @media(max-width: 600px){
-      h1{
-        font-size: 2rem;
+    /* ANIMATION */
+
+    @keyframes fadeUp{
+
+      from{
+        opacity:0;
+        transform:translateY(40px);
       }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+    }
+
+    @media(max-width:768px){
 
       .box{
-        padding: 25px 35px;
+
+        width:90%;
+
+        padding:35px 20px;
+
+        border-radius:24px;
       }
+
+      h1{
+
+        font-size:32px;
+
+        letter-spacing:2px;
+      }
+
     }
+
   </style>
+
 </head>
+
 <body>
 
+  <!-- BLUR -->
+  <div class="blur blur1"></div>
+  <div class="blur blur2"></div>
+
+  <!-- CONTENT -->
   <div class="box">
-    <h1>SEDANG PROSES<span class="dots"></span></h1>
+
+    <h1>
+      <span>SEDANG</span>
+      PROSES
+      <span class="dots"></span>
+    </h1>
+
   </div>
 
 </body>
+
 </html>
