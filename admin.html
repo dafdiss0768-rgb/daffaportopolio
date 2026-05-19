@@ -1,26 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Daffa Control Center</title>
-
-  <!-- GOOGLE ANALYTICS -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GF5D017249"></script>
-
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-GF5D017249');
-  </script>
 
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -429,25 +414,25 @@
       </div>
 
       <h1>
-        ADMIN ACCESS
+        LOGIN ADMIN
       </h1>
 
       <p>
-        Enter password to continue
+        Masukkan password admin
       </p>
 
       <input
         type="password"
         id="adminPassword"
-        placeholder="Enter Password..."
+        placeholder="Masukkan Password..."
       >
 
       <button onclick="checkPassword()">
-        LOGIN
+        MASUK
       </button>
 
       <span id="errorText">
-        Wrong Password
+        Password Salah
       </span>
 
     </div>
@@ -474,7 +459,7 @@
           </h1>
 
           <p class="subtitle">
-            Portfolio Monitoring System
+            Sistem Monitoring Portfolio
           </p>
 
         </div>
@@ -482,7 +467,7 @@
       </div>
 
       <div class="status">
-        🟢 SYSTEM ONLINE
+        🟢 SISTEM AKTIF
       </div>
 
     </div>
@@ -493,7 +478,7 @@
       <div class="card">
 
         <h3>
-          Total Visitor
+          Total Pengunjung
         </h3>
 
         <h1 id="visitorCount">
@@ -505,28 +490,16 @@
       <div class="card">
 
         <h3>
-          Device Type
+          Jenis Perangkat
         </h3>
 
         <div class="device">
 
           <span id="deviceType">
-            Detecting...
+            Memuat...
           </span>
 
         </div>
-
-      </div>
-
-      <div class="card">
-
-        <h3>
-          Device Name
-        </h3>
-
-        <h1 id="platform">
-          Android
-        </h1>
 
       </div>
 
@@ -550,14 +523,14 @@
       <div class="realtime-top">
 
         <h2>
-          Visitor Activity
+          Aktivitas Pengunjung
         </h2>
 
         <div class="pulse">
 
           <div class="pulse-dot"></div>
 
-          LIVE MONITORING
+          REALTIME
 
         </div>
 
@@ -579,26 +552,26 @@
   <script>
 
     // =========================
-    // ADMIN SESSION LOGIN
+    // LOGIN ADMIN
     // =========================
 
-    const loginScreen =
+    const layarLogin =
       document.getElementById("loginScreen");
 
-    const SESSION_TIME =
+    const waktuSession =
       4 * 60 * 1000;
 
-    const savedLogin =
+    const loginTersimpan =
       localStorage.getItem("adminLoginTime");
 
     // AUTO LOGIN 4 MENIT
-    if(savedLogin){
+    if(loginTersimpan){
 
-      const now = Date.now();
+      const sekarang = Date.now();
 
-      if(now - savedLogin < SESSION_TIME){
+      if(sekarang - loginTersimpan < waktuSession){
 
-        loginScreen.style.display = "none";
+        layarLogin.style.display = "none";
 
       }
 
@@ -609,16 +582,14 @@
       const password =
         document.getElementById("adminPassword").value;
 
-      // PASSWORD ADMIN
       if(password === "daffa123"){
 
-        // SIMPAN LOGIN
         localStorage.setItem(
           "adminLoginTime",
           Date.now()
         );
 
-        loginScreen.style.display = "none";
+        layarLogin.style.display = "none";
 
       } else {
 
@@ -630,52 +601,19 @@
     }
 
     // =========================
-    // DEVICE DETECT
+    // DETEKSI DEVICE
     // =========================
 
     const userAgent =
       navigator.userAgent;
 
-    // DEVICE TYPE
-    let deviceType = "Desktop";
+    let tipePerangkat = "💻 Komputer";
 
     if(/Android|iPhone|iPad|iPod/i.test(userAgent)){
-      deviceType = "Mobile";
+      tipePerangkat = "📱 HP";
     }
 
-    // DEVICE NAME
-    let deviceName = "Unknown Device";
-
-    if(userAgent.includes("Samsung")){
-      deviceName = "Samsung";
-    }
-    else if(userAgent.includes("Xiaomi")){
-      deviceName = "Xiaomi";
-    }
-    else if(userAgent.includes("Redmi")){
-      deviceName = "Redmi";
-    }
-    else if(userAgent.includes("OPPO")){
-      deviceName = "OPPO";
-    }
-    else if(userAgent.includes("Vivo")){
-      deviceName = "Vivo";
-    }
-    else if(userAgent.includes("Realme")){
-      deviceName = "Realme";
-    }
-    else if(userAgent.includes("iPhone")){
-      deviceName = "iPhone";
-    }
-    else if(userAgent.includes("Windows")){
-      deviceName = "Windows PC";
-    }
-    else if(userAgent.includes("Mac")){
-      deviceName = "MacBook";
-    }
-
-    // BROWSER
-    let browser = "Unknown";
+    let browser = "Tidak Diketahui";
 
     if(userAgent.includes("Chrome")){
       browser = "Chrome";
@@ -690,58 +628,92 @@
       browser = "Edge";
     }
 
-    // =========================
-    // TAMPILKAN DATA
-    // =========================
-
     document.getElementById("deviceType")
-      .innerHTML =
-      deviceType === "Mobile"
-      ? "📱 Mobile"
-      : "💻 Desktop";
+      .innerHTML = tipePerangkat;
 
     document.getElementById("browser")
       .innerHTML = browser;
 
-    document.getElementById("platform")
-      .innerHTML = deviceName;
-
     // =========================
-    // VISITOR COUNT
+    // TOTAL PENGUNJUNG
     // =========================
 
-    const visitor =
+    const totalPengunjung =
       localStorage.getItem("portfolioVisitor") || 0;
 
     document.getElementById("visitorCount")
-      .innerHTML = visitor;
+      .innerHTML = totalPengunjung;
 
     // =========================
-    // REALTIME ACTIVITY
+    // LOG PENGUNJUNG
     // =========================
 
     const logContainer =
       document.getElementById("logContainer");
 
-    const time =
-      new Date().toLocaleTimeString();
+    // AMBIL DATA LAMA
+    let daftarLog =
+      JSON.parse(localStorage.getItem("visitorLogs"))
+      || [];
 
-    const div =
-      document.createElement("div");
+    // WAKTU
+    const sekarang =
+      new Date();
 
-    div.classList.add("log-item");
+    const waktuMasuk =
+      sekarang.toLocaleTimeString("id-ID");
 
-    div.innerHTML = `
-      <span>
-        ${deviceName} opened website at ${time}
-      </span>
+    const tanggalMasuk =
+      sekarang.toLocaleDateString("id-ID");
 
-      <span class="online">
-        ONLINE
-      </span>
-    `;
+    // DATA BARU
+    const dataBaru = {
+      perangkat: tipePerangkat,
+      browser: browser,
+      waktu: waktuMasuk,
+      tanggal: tanggalMasuk
+    };
 
-    logContainer.appendChild(div);
+    // MASUKKAN KE LIST
+    daftarLog.unshift(dataBaru);
+
+    // BATASI LOG
+    if(daftarLog.length > 30){
+      daftarLog.pop();
+    }
+
+    // SIMPAN
+    localStorage.setItem(
+      "visitorLogs",
+      JSON.stringify(daftarLog)
+    );
+
+    // HAPUS LOG LAMA
+    logContainer.innerHTML = "";
+
+    // TAMPILKAN SEMUA LOG
+    daftarLog.forEach((item) => {
+
+      const div =
+        document.createElement("div");
+
+      div.classList.add("log-item");
+
+      div.innerHTML = `
+        <span>
+          ${item.perangkat} masuk ke website
+          pada ${item.tanggal}
+          jam ${item.waktu}
+        </span>
+
+        <span class="online">
+          ${item.browser}
+        </span>
+      `;
+
+      logContainer.appendChild(div);
+
+    });
 
   </script>
 
