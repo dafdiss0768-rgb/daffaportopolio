@@ -59,6 +59,97 @@
       padding:30px;
     }
 
+    /* LOGIN */
+
+    .login-screen{
+      position:fixed;
+      inset:0;
+      background:#050505;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:99999;
+      padding:20px;
+    }
+
+    .login-box{
+      width:100%;
+      max-width:420px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(20px);
+      padding:40px;
+      border-radius:35px;
+      text-align:center;
+      box-shadow:0 0 40px #ff00cc22;
+    }
+
+    .login-logo{
+      width:90px;
+      height:90px;
+      margin:auto;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff00cc,#00ffff);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:2.5rem;
+      font-weight:800;
+      margin-bottom:25px;
+      box-shadow:
+      0 0 30px #ff00cc66,
+      0 0 60px #00ffff33;
+    }
+
+    .login-box h1{
+      font-size:2rem;
+      margin-bottom:10px;
+    }
+
+    .login-box p{
+      color:#888;
+      margin-bottom:25px;
+    }
+
+    .login-box input{
+      width:100%;
+      height:58px;
+      border:none;
+      outline:none;
+      border-radius:18px;
+      background:#111;
+      color:white;
+      padding:0 20px;
+      margin-bottom:20px;
+      border:1px solid #222;
+      font-size:1rem;
+    }
+
+    .login-box button{
+      width:100%;
+      height:58px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(90deg,#ff00cc,#00ffff);
+      color:white;
+      font-weight:700;
+      cursor:pointer;
+      font-size:1rem;
+      transition:.3s;
+    }
+
+    .login-box button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 0 25px #ff00cc55;
+    }
+
+    #errorText{
+      color:#ff4d4d;
+      display:none;
+      margin-top:15px;
+      font-size:.95rem;
+    }
+
     /* TOPBAR */
 
     .topbar{
@@ -90,21 +181,6 @@
       box-shadow:
       0 0 25px #ff00cc88,
       0 0 50px #00ffff44;
-      animation:float 3s ease-in-out infinite;
-    }
-
-    @keyframes float{
-      0%{
-        transform:translateY(0px);
-      }
-
-      50%{
-        transform:translateY(-6px);
-      }
-
-      100%{
-        transform:translateY(0px);
-      }
     }
 
     .title{
@@ -334,12 +410,51 @@
         padding:22px;
       }
 
+      .login-box{
+        padding:30px 25px;
+      }
+
     }
 
   </style>
 </head>
 
 <body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="loginScreen">
+
+    <div class="login-box">
+
+      <div class="login-logo">
+        D
+      </div>
+
+      <h1>
+        ADMIN ACCESS
+      </h1>
+
+      <p>
+        Enter password to continue
+      </p>
+
+      <input
+        type="password"
+        id="adminPassword"
+        placeholder="Enter Password..."
+      >
+
+      <button onclick="checkPassword()">
+        LOGIN
+      </button>
+
+      <span id="errorText">
+        Wrong Password
+      </span>
+
+    </div>
+
+  </div>
 
   <div class="bg"></div>
 
@@ -377,7 +492,6 @@
     <!-- GRID -->
     <div class="grid">
 
-      <!-- VISITOR -->
       <div class="card">
 
         <h3>
@@ -390,7 +504,6 @@
 
       </div>
 
-      <!-- DEVICE -->
       <div class="card">
 
         <h3>
@@ -407,7 +520,6 @@
 
       </div>
 
-      <!-- BROWSER -->
       <div class="card">
 
         <h3>
@@ -420,7 +532,6 @@
 
       </div>
 
-      <!-- PLATFORM -->
       <div class="card">
 
         <h3>
@@ -480,6 +591,27 @@
   </div>
 
   <script>
+
+    // PASSWORD LOGIN
+    function checkPassword(){
+
+      const password =
+        document.getElementById("adminPassword").value;
+
+      // PASSWORD
+      if(password === "daffa123"){
+
+        document.getElementById("loginScreen")
+          .style.display = "none";
+
+      } else {
+
+        document.getElementById("errorText")
+          .style.display = "block";
+
+      }
+
+    }
 
     // DEVICE DETECT
     const isMobile =
@@ -544,4 +676,5 @@
   </script>
 
 </body>
+
 </html>
