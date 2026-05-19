@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Daffa Admin Dashboard</title>
+  <title>Daffa Control Center</title>
 
   <!-- GOOGLE ANALYTICS -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GF5D017249"></script>
@@ -25,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
 
@@ -47,7 +48,8 @@
       inset:0;
       background:
       radial-gradient(circle at top left,#ff00cc33,transparent 30%),
-      radial-gradient(circle at bottom right,#00ffff22,transparent 30%);
+      radial-gradient(circle at bottom right,#00ffff22,transparent 30%),
+      #050505;
       z-index:-1;
     }
 
@@ -57,47 +59,113 @@
       padding:30px;
     }
 
+    /* TOPBAR */
+
     .topbar{
       display:flex;
       justify-content:space-between;
       align-items:center;
       margin-bottom:40px;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .logo-box{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .logo-circle{
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff00cc,#00ffff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2rem;
+      font-weight:800;
+      color:white;
+      box-shadow:
+      0 0 25px #ff00cc88,
+      0 0 50px #00ffff44;
+      animation:float 3s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-6px);
+      }
+
+      100%{
+        transform:translateY(0px);
+      }
     }
 
     .title{
       font-size:2rem;
-      font-weight:700;
+      font-weight:800;
       background:linear-gradient(90deg,#ff00cc,#00ffff);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
 
-    .status{
-      padding:10px 18px;
-      border-radius:30px;
-      background:#111;
-      border:1px solid #222;
-      font-size:.9rem;
+    .subtitle{
+      color:#888;
+      margin-top:5px;
+      font-size:.95rem;
     }
+
+    .status{
+      padding:12px 20px;
+      border-radius:30px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(15px);
+      font-size:.9rem;
+      box-shadow:0 0 15px #00ff8833;
+    }
+
+    /* GRID */
 
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
+      gap:22px;
     }
 
     .card{
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.08);
       backdrop-filter:blur(15px);
-      border-radius:25px;
-      padding:25px;
-      transition:.3s;
+      border-radius:30px;
+      padding:28px;
+      transition:.4s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      width:150px;
+      height:150px;
+      background:#ff00cc22;
+      border-radius:50%;
+      top:-50px;
+      right:-50px;
+      filter:blur(30px);
     }
 
     .card:hover{
-      transform:translateY(-5px);
+      transform:translateY(-7px);
       border-color:#ff00cc;
+      box-shadow:0 0 30px #ff00cc22;
     }
 
     .card h3{
@@ -105,56 +173,107 @@
       color:#aaa;
       margin-bottom:15px;
       font-weight:400;
+      position:relative;
+      z-index:2;
     }
 
     .card h1{
-      font-size:2.5rem;
+      font-size:2.7rem;
       font-weight:700;
+      position:relative;
+      z-index:2;
     }
 
     .device{
       display:flex;
-      gap:15px;
-      margin-top:15px;
+      gap:10px;
       flex-wrap:wrap;
+      position:relative;
+      z-index:2;
     }
 
     .device span{
-      padding:8px 14px;
-      background:#111;
+      padding:10px 16px;
       border-radius:20px;
-      font-size:.9rem;
+      background:#101010;
       border:1px solid #222;
+      font-size:.95rem;
     }
 
+    /* REALTIME */
+
     .realtime{
-      margin-top:40px;
+      margin-top:35px;
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.08);
-      border-radius:25px;
-      padding:25px;
+      backdrop-filter:blur(15px);
+      border-radius:30px;
+      padding:30px;
+    }
+
+    .realtime-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:25px;
+      flex-wrap:wrap;
+      gap:15px;
     }
 
     .realtime h2{
-      margin-bottom:20px;
-      font-size:1.4rem;
+      font-size:1.5rem;
+    }
+
+    .pulse{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#00ff88;
+      font-size:.95rem;
+    }
+
+    .pulse-dot{
+      width:10px;
+      height:10px;
+      background:#00ff88;
+      border-radius:50%;
+      animation:pulse 1s infinite;
+    }
+
+    @keyframes pulse{
+      0%{
+        opacity:1;
+        transform:scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:scale(2);
+      }
     }
 
     .log{
       display:flex;
       flex-direction:column;
-      gap:12px;
+      gap:15px;
     }
 
     .log-item{
       background:#0f0f0f;
       border:1px solid #1d1d1d;
-      padding:15px;
-      border-radius:15px;
+      padding:18px;
+      border-radius:18px;
       display:flex;
       justify-content:space-between;
       align-items:center;
       flex-wrap:wrap;
+      gap:10px;
+      transition:.3s;
+    }
+
+    .log-item:hover{
+      border-color:#00ffff55;
+      transform:translateX(5px);
     }
 
     .online{
@@ -162,21 +281,57 @@
       font-size:.9rem;
     }
 
+    /* FOOTER */
+
     .footer{
       margin-top:50px;
       text-align:center;
       color:#666;
       font-size:.9rem;
+      padding-bottom:20px;
     }
 
-    @media(max-width:700px){
+    /* MOBILE */
+
+    @media(max-width:768px){
+
+      .container{
+        padding:20px;
+      }
 
       .title{
         font-size:1.5rem;
       }
 
+      .subtitle{
+        font-size:.8rem;
+      }
+
+      .logo-circle{
+        width:60px;
+        height:60px;
+        font-size:1.5rem;
+      }
+
+      .card{
+        padding:22px;
+      }
+
       .card h1{
         font-size:2rem;
+      }
+
+      .topbar{
+        align-items:flex-start;
+      }
+
+      .status{
+        width:100%;
+        text-align:center;
+      }
+
+      .realtime{
+        padding:22px;
       }
 
     }
@@ -190,13 +345,27 @@
 
   <div class="container">
 
-    <!-- TOP -->
+    <!-- TOPBAR -->
     <div class="topbar">
 
-      <div>
-        <h1 class="title">
-          DAFFA ADMIN PANEL
-        </h1>
+      <div class="logo-box">
+
+        <div class="logo-circle">
+          D
+        </div>
+
+        <div>
+
+          <h1 class="title">
+            DAFFA CONTROL
+          </h1>
+
+          <p class="subtitle">
+            Portfolio Monitoring System
+          </p>
+
+        </div>
+
       </div>
 
       <div class="status">
@@ -205,36 +374,63 @@
 
     </div>
 
-    <!-- CARD -->
+    <!-- GRID -->
     <div class="grid">
 
+      <!-- VISITOR -->
       <div class="card">
-        <h3>Total Visitor</h3>
-        <h1 id="visitorCount">1</h1>
+
+        <h3>
+          Total Visitor
+        </h3>
+
+        <h1 id="visitorCount">
+          0
+        </h1>
+
       </div>
 
+      <!-- DEVICE -->
       <div class="card">
-        <h3>Device Detected</h3>
+
+        <h3>
+          Device Detected
+        </h3>
 
         <div class="device">
+
           <span id="deviceType">
             Detecting...
           </span>
+
         </div>
+
       </div>
 
+      <!-- BROWSER -->
       <div class="card">
-        <h3>Browser</h3>
+
+        <h3>
+          Browser
+        </h3>
+
         <h1 id="browser">
           Chrome
         </h1>
+
       </div>
 
+      <!-- PLATFORM -->
       <div class="card">
-        <h3>Platform</h3>
+
+        <h3>
+          Platform
+        </h3>
+
         <h1 id="platform">
           Android
         </h1>
+
       </div>
 
     </div>
@@ -242,20 +438,34 @@
     <!-- REALTIME -->
     <div class="realtime">
 
-      <h2>
-        Realtime Activity
-      </h2>
+      <div class="realtime-top">
+
+        <h2>
+          Realtime Activity
+        </h2>
+
+        <div class="pulse">
+
+          <div class="pulse-dot"></div>
+
+          LIVE MONITORING
+
+        </div>
+
+      </div>
 
       <div class="log" id="logContainer">
 
         <div class="log-item">
+
           <span>
-            Visitor opened website
+            Waiting visitor activity...
           </span>
 
           <span class="online">
-            ACTIVE NOW
+            STANDBY
           </span>
+
         </div>
 
       </div>
@@ -277,11 +487,11 @@
 
     document.getElementById("deviceType").innerHTML =
       isMobile
-      ? "📱 Mobile"
-      : "💻 Desktop";
+      ? "📱 Mobile Device"
+      : "💻 Desktop Device";
 
     // BROWSER DETECT
-    let browser = "Unknown";
+    let browser = "Unknown Browser";
 
     if(navigator.userAgent.includes("Chrome")){
       browser = "Chrome";
@@ -293,40 +503,35 @@
       browser = "Safari";
     }
 
-    document.getElementById("browser").innerHTML = browser;
+    document.getElementById("browser").innerHTML =
+      browser;
 
     // PLATFORM
     document.getElementById("platform").innerHTML =
       navigator.platform;
 
-    // VISITOR COUNTER
-    let count =
-      localStorage.getItem("visitorCount");
-
-    if(!count){
-      count = 1;
-    }else{
-      count++;
-    }
-
-    localStorage.setItem("visitorCount", count);
+    // VISITOR COUNT
+    const visitor =
+      localStorage.getItem("portfolioVisitor") || 0;
 
     document.getElementById("visitorCount")
-      .innerHTML = count;
+      .innerHTML = visitor;
 
     // REALTIME LOG
     const logContainer =
       document.getElementById("logContainer");
 
-    const time = new Date().toLocaleTimeString();
+    const time =
+      new Date().toLocaleTimeString();
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     div.classList.add("log-item");
 
     div.innerHTML = `
       <span>
-        Visitor joined at ${time}
+        Visitor joined website at ${time}
       </span>
 
       <span class="online">
