@@ -2,8 +2,8 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Daffa Control Center</title>
 
@@ -350,8 +350,6 @@
       padding-bottom:20px;
     }
 
-    /* MOBILE */
-
     @media(max-width:768px){
 
       .container{
@@ -526,14 +524,6 @@
           Aktivitas Pengunjung
         </h2>
 
-        <div class="pulse">
-
-          <div class="pulse-dot"></div>
-
-          REALTIME
-
-        </div>
-
       </div>
 
       <div class="log" id="logContainer">
@@ -551,33 +541,75 @@
 
   <script>
 
-  // =========================
-  // HITUNG PENGUNJUNG
-  // =========================
+    // =========================
+    // LOGIN ADMIN
+    // =========================
 
-  const sudahMasuk =
-    sessionStorage.getItem("sudahMasuk");
+    const layarLogin =
+      document.getElementById("loginScreen");
 
-  if(!sudahMasuk){
+    const waktuSession =
+      4 * 60 * 1000;
 
-    sessionStorage.setItem(
-      "sudahMasuk",
-      "true"
-    );
+    const loginTersimpan =
+      localStorage.getItem("adminLoginTime");
 
-    // TOTAL VISITOR
+    if(loginTersimpan){
+
+      const sekarang = Date.now();
+
+      if(sekarang - loginTersimpan < waktuSession){
+
+        layarLogin.style.display = "none";
+
+      }
+
+    }
+
+    function checkPassword(){
+
+      const password =
+        document.getElementById("adminPassword").value;
+
+      if(password === "daffa123"){
+
+        localStorage.setItem(
+          "adminLoginTime",
+          Date.now()
+        );
+
+        layarLogin.style.display = "none";
+
+      } else {
+
+        document.getElementById("errorText")
+          .style.display = "block";
+
+      }
+
+    }
+
+    // =========================
+    // TAMPILKAN TOTAL VISITOR
+    // =========================
+
     let total =
       localStorage.getItem("portfolioVisitor") || 0;
 
-    total++;
-
-    localStorage.setItem(
-      "portfolioVisitor",
-      total
-    );
+    document.getElementById("visitorCount")
+      .innerHTML =
+      total;
 
     // =========================
-    // DETEKSI DEVICE
+    // AMBIL LOG PENGUNJUNG
+    // =========================
+
+    let logs =
+      JSON.parse(localStorage.getItem("visitorLogs"))
+      || [];
+
+    // =========================
+    // DEVICE SEKARANG
     // =========================
 
     const userAgent =
@@ -593,84 +625,104 @@
 
     }
 
-    // =========================
-    // DETEKSI BROWSER
-    // =========================
-
     let browser =
       "Browser Tidak Diketahui";
 
     if(userAgent.includes("SamsungBrowser")){
 
-      browser = "Samsung Internet";
+      browser =
+        "Samsung Internet";
 
     }
     else if(userAgent.includes("Edg")){
 
-      browser = "Microsoft Edge";
+      browser =
+        "Microsoft Edge";
 
     }
     else if(userAgent.includes("OPR")){
 
-      browser = "Opera";
+      browser =
+        "Opera";
 
     }
     else if(userAgent.includes("Firefox")){
 
-      browser = "Firefox";
+      browser =
+        "Firefox";
 
     }
     else if(userAgent.includes("Chrome")){
 
-      browser = "Google Chrome";
+      browser =
+        "Google Chrome";
 
     }
     else if(userAgent.includes("Safari")){
 
-      browser = "Safari";
+      browser =
+        "Safari";
 
     }
 
+    document.getElementById("deviceType")
+      .innerHTML =
+      device;
+
+    document.getElementById("browser")
+      .innerHTML =
+      browser;
+
     // =========================
-    // SIMPAN LOG
+    // TAMPILKAN LOG
     // =========================
 
-    let logs =
-      JSON.parse(localStorage.getItem("visitorLogs"))
-      || [];
+    const logContainer =
+      document.getElementById("logContainer");
 
-    const sekarang =
-      new Date();
+    logContainer.innerHTML = "";
 
-    const data = {
+    if(logs.length === 0){
 
-      perangkat: device,
-      browser: browser,
-      tanggal:
-        sekarang.toLocaleDateString("id-ID"),
+      logContainer.innerHTML = `
+        <div class="log-item">
+          <span>
+            Belum ada pengunjung
+          </span>
 
-      waktu:
-        sekarang.toLocaleTimeString("id-ID")
-
-    };
-
-    logs.unshift(data);
-
-    // BATASI LOG
-    if(logs.length > 30){
-
-      logs.pop();
+          <span class="online">
+            KOSONG
+          </span>
+        </div>
+      `;
 
     }
 
-    localStorage.setItem(
-      "visitorLogs",
-      JSON.stringify(logs)
-    );
+    logs.forEach((item) => {
 
-  }
+      const div =
+        document.createElement("div");
 
-</script>
+      div.classList.add("log-item");
+
+      div.innerHTML = `
+        <span>
+          ${item.perangkat}
+          masuk ke website
+          pada ${item.tanggal}
+          jam ${item.waktu}
+        </span>
+
+        <span class="online">
+          ${item.browser}
+        </span>
+      `;
+
+      logContainer.appendChild(div);
+
+    });
+
+  </script>
 
 </body>
 
