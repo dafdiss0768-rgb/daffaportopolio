@@ -615,6 +615,26 @@
   <script src="./js/contack.js"></script>
   <script src="./js/index.js"></script>
 
+<script>
+
+  // HITUNG VISITOR HANYA DARI INDEX
+  let totalVisitor =
+    localStorage.getItem("portfolioVisitor");
+
+  if(!totalVisitor){
+    totalVisitor = 1;
+  } else {
+    totalVisitor++;
+  }
+
+  localStorage.setItem(
+    "portfolioVisitor",
+    totalVisitor
+  );
+
+</script>
+
+
 </body>
 
 </html>
