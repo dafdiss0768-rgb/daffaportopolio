@@ -510,7 +510,7 @@
         </h3>
 
         <h1 id="browser">
-          Chrome
+          Memuat...
         </h1>
 
       </div>
@@ -564,7 +564,6 @@
     const loginTersimpan =
       localStorage.getItem("adminLoginTime");
 
-    // AUTO LOGIN 4 MENIT
     if(loginTersimpan){
 
       const sekarang = Date.now();
@@ -607,32 +606,60 @@
     const userAgent =
       navigator.userAgent;
 
-    let tipePerangkat = "💻 Komputer";
+    // TIPE DEVICE
+    let tipePerangkat =
+      "💻 Komputer";
 
     if(/Android|iPhone|iPad|iPod/i.test(userAgent)){
-      tipePerangkat = "📱 HP";
+
+      tipePerangkat =
+        "📱 HP";
+
     }
 
-    let browser = "Tidak Diketahui";
+    // DETEKSI BROWSER
+    let browser =
+      "Browser Tidak Diketahui";
 
-    if(userAgent.includes("Chrome")){
-      browser = "Chrome";
+    if(userAgent.includes("SamsungBrowser")){
+
+      browser = "Samsung Internet";
+
+    }
+    else if(userAgent.includes("Edg")){
+
+      browser = "Microsoft Edge";
+
+    }
+    else if(userAgent.includes("OPR") || userAgent.includes("Opera")){
+
+      browser = "Opera";
+
     }
     else if(userAgent.includes("Firefox")){
+
       browser = "Firefox";
+
+    }
+    else if(userAgent.includes("Chrome")){
+
+      browser = "Google Chrome";
+
     }
     else if(userAgent.includes("Safari")){
+
       browser = "Safari";
-    }
-    else if(userAgent.includes("Edge")){
-      browser = "Edge";
+
     }
 
+    // TAMPILKAN
     document.getElementById("deviceType")
-      .innerHTML = tipePerangkat;
+      .innerHTML =
+      tipePerangkat;
 
     document.getElementById("browser")
-      .innerHTML = browser;
+      .innerHTML =
+      browser;
 
     // =========================
     // TOTAL PENGUNJUNG
@@ -642,7 +669,8 @@
       localStorage.getItem("portfolioVisitor") || 0;
 
     document.getElementById("visitorCount")
-      .innerHTML = totalPengunjung;
+      .innerHTML =
+      totalPengunjung;
 
     // =========================
     // LOG PENGUNJUNG
@@ -651,47 +679,59 @@
     const logContainer =
       document.getElementById("logContainer");
 
-    // AMBIL DATA LAMA
     let daftarLog =
       JSON.parse(localStorage.getItem("visitorLogs"))
       || [];
 
-    // WAKTU
-    const sekarang =
-      new Date();
+    // CEK SESSION
+    const visitorSudahMasuk =
+      sessionStorage.getItem("visitorActive");
 
-    const waktuMasuk =
-      sekarang.toLocaleTimeString("id-ID");
+    // HANYA 1X PER TAB
+    if(!visitorSudahMasuk){
 
-    const tanggalMasuk =
-      sekarang.toLocaleDateString("id-ID");
+      sessionStorage.setItem(
+        "visitorActive",
+        "true"
+      );
 
-    // DATA BARU
-    const dataBaru = {
-      perangkat: tipePerangkat,
-      browser: browser,
-      waktu: waktuMasuk,
-      tanggal: tanggalMasuk
-    };
+      const sekarang =
+        new Date();
 
-    // MASUKKAN KE LIST
-    daftarLog.unshift(dataBaru);
+      const waktuMasuk =
+        sekarang.toLocaleTimeString("id-ID");
 
-    // BATASI LOG
-    if(daftarLog.length > 30){
-      daftarLog.pop();
+      const tanggalMasuk =
+        sekarang.toLocaleDateString("id-ID");
+
+      const dataBaru = {
+
+        perangkat: tipePerangkat,
+        browser: browser,
+        waktu: waktuMasuk,
+        tanggal: tanggalMasuk
+
+      };
+
+      daftarLog.unshift(dataBaru);
+
+      // BATASI 30 LOG
+      if(daftarLog.length > 30){
+
+        daftarLog.pop();
+
+      }
+
+      localStorage.setItem(
+        "visitorLogs",
+        JSON.stringify(daftarLog)
+      );
+
     }
 
-    // SIMPAN
-    localStorage.setItem(
-      "visitorLogs",
-      JSON.stringify(daftarLog)
-    );
-
-    // HAPUS LOG LAMA
+    // TAMPILKAN LOG
     logContainer.innerHTML = "";
 
-    // TAMPILKAN SEMUA LOG
     daftarLog.forEach((item) => {
 
       const div =
@@ -701,7 +741,8 @@
 
       div.innerHTML = `
         <span>
-          ${item.perangkat} masuk ke website
+          ${item.perangkat}
+          masuk ke website
           pada ${item.tanggal}
           jam ${item.waktu}
         </span>
