@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Daffa Admin Dashboard</title>
+
+  <!-- GOOGLE ANALYTICS -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GF5D017249"></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-GF5D017249');
+  </script>
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:#050505;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .bg{
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top left,#ff00cc33,transparent 30%),
+      radial-gradient(circle at bottom right,#00ffff22,transparent 30%);
+      z-index:-1;
+    }
+
+    .container{
+      width:100%;
+      min-height:100vh;
+      padding:30px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:40px;
+    }
+
+    .title{
+      font-size:2rem;
+      font-weight:700;
+      background:linear-gradient(90deg,#ff00cc,#00ffff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .status{
+      padding:10px 18px;
+      border-radius:30px;
+      background:#111;
+      border:1px solid #222;
+      font-size:.9rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(15px);
+      border-radius:25px;
+      padding:25px;
+      transition:.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      border-color:#ff00cc;
+    }
+
+    .card h3{
+      font-size:1rem;
+      color:#aaa;
+      margin-bottom:15px;
+      font-weight:400;
+    }
+
+    .card h1{
+      font-size:2.5rem;
+      font-weight:700;
+    }
+
+    .device{
+      display:flex;
+      gap:15px;
+      margin-top:15px;
+      flex-wrap:wrap;
+    }
+
+    .device span{
+      padding:8px 14px;
+      background:#111;
+      border-radius:20px;
+      font-size:.9rem;
+      border:1px solid #222;
+    }
+
+    .realtime{
+      margin-top:40px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:25px;
+      padding:25px;
+    }
+
+    .realtime h2{
+      margin-bottom:20px;
+      font-size:1.4rem;
+    }
+
+    .log{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .log-item{
+      background:#0f0f0f;
+      border:1px solid #1d1d1d;
+      padding:15px;
+      border-radius:15px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .online{
+      color:#00ff88;
+      font-size:.9rem;
+    }
+
+    .footer{
+      margin-top:50px;
+      text-align:center;
+      color:#666;
+      font-size:.9rem;
+    }
+
+    @media(max-width:700px){
+
+      .title{
+        font-size:1.5rem;
+      }
+
+      .card h1{
+        font-size:2rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+
+  <div class="container">
+
+    <!-- TOP -->
+    <div class="topbar">
+
+      <div>
+        <h1 class="title">
+          DAFFA ADMIN PANEL
+        </h1>
+      </div>
+
+      <div class="status">
+        🟢 SYSTEM ONLINE
+      </div>
+
+    </div>
+
+    <!-- CARD -->
+    <div class="grid">
+
+      <div class="card">
+        <h3>Total Visitor</h3>
+        <h1 id="visitorCount">1</h1>
+      </div>
+
+      <div class="card">
+        <h3>Device Detected</h3>
+
+        <div class="device">
+          <span id="deviceType">
+            Detecting...
+          </span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Browser</h3>
+        <h1 id="browser">
+          Chrome
+        </h1>
+      </div>
+
+      <div class="card">
+        <h3>Platform</h3>
+        <h1 id="platform">
+          Android
+        </h1>
+      </div>
+
+    </div>
+
+    <!-- REALTIME -->
+    <div class="realtime">
+
+      <h2>
+        Realtime Activity
+      </h2>
+
+      <div class="log" id="logContainer">
+
+        <div class="log-item">
+          <span>
+            Visitor opened website
+          </span>
+
+          <span class="online">
+            ACTIVE NOW
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      Daffa Portfolio Monitoring System © 2026
+    </div>
+
+  </div>
+
+  <script>
+
+    // DEVICE DETECT
+    const isMobile =
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    document.getElementById("deviceType").innerHTML =
+      isMobile
+      ? "📱 Mobile"
+      : "💻 Desktop";
+
+    // BROWSER DETECT
+    let browser = "Unknown";
+
+    if(navigator.userAgent.includes("Chrome")){
+      browser = "Chrome";
+    }
+    else if(navigator.userAgent.includes("Firefox")){
+      browser = "Firefox";
+    }
+    else if(navigator.userAgent.includes("Safari")){
+      browser = "Safari";
+    }
+
+    document.getElementById("browser").innerHTML = browser;
+
+    // PLATFORM
+    document.getElementById("platform").innerHTML =
+      navigator.platform;
+
+    // VISITOR COUNTER
+    let count =
+      localStorage.getItem("visitorCount");
+
+    if(!count){
+      count = 1;
+    }else{
+      count++;
+    }
+
+    localStorage.setItem("visitorCount", count);
+
+    document.getElementById("visitorCount")
+      .innerHTML = count;
+
+    // REALTIME LOG
+    const logContainer =
+      document.getElementById("logContainer");
+
+    const time = new Date().toLocaleTimeString();
+
+    const div = document.createElement("div");
+
+    div.classList.add("log-item");
+
+    div.innerHTML = `
+      <span>
+        Visitor joined at ${time}
+      </span>
+
+      <span class="online">
+        ONLINE
+      </span>
+    `;
+
+    logContainer.appendChild(div);
+
+  </script>
+
+</body>
+</html>
