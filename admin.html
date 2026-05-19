@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Daffa Control Center</title>
 
@@ -357,8 +357,6 @@
       font-size:.9rem;
     }
 
-    /* FOOTER */
-
     .footer{
       margin-top:50px;
       text-align:center;
@@ -507,7 +505,7 @@
       <div class="card">
 
         <h3>
-          Device Detected
+          Device Type
         </h3>
 
         <div class="device">
@@ -523,11 +521,11 @@
       <div class="card">
 
         <h3>
-          Browser
+          Device Name
         </h3>
 
-        <h1 id="browser">
-          Chrome
+        <h1 id="platform">
+          Android
         </h1>
 
       </div>
@@ -535,11 +533,11 @@
       <div class="card">
 
         <h3>
-          Platform
+          Browser
         </h3>
 
-        <h1 id="platform">
-          Android
+        <h1 id="browser">
+          Chrome
         </h1>
 
       </div>
@@ -552,7 +550,7 @@
       <div class="realtime-top">
 
         <h2>
-          Realtime Activity
+          Visitor Activity
         </h2>
 
         <div class="pulse">
@@ -567,18 +565,6 @@
 
       <div class="log" id="logContainer">
 
-        <div class="log-item">
-
-          <span>
-            Waiting visitor activity...
-          </span>
-
-          <span class="online">
-            STANDBY
-          </span>
-
-        </div>
-
       </div>
 
     </div>
@@ -592,17 +578,47 @@
 
   <script>
 
-    // PASSWORD LOGIN
+    // =========================
+    // ADMIN SESSION LOGIN
+    // =========================
+
+    const loginScreen =
+      document.getElementById("loginScreen");
+
+    const SESSION_TIME =
+      4 * 60 * 1000;
+
+    const savedLogin =
+      localStorage.getItem("adminLoginTime");
+
+    // AUTO LOGIN 4 MENIT
+    if(savedLogin){
+
+      const now = Date.now();
+
+      if(now - savedLogin < SESSION_TIME){
+
+        loginScreen.style.display = "none";
+
+      }
+
+    }
+
     function checkPassword(){
 
       const password =
         document.getElementById("adminPassword").value;
 
-      // PASSWORD
+      // PASSWORD ADMIN
       if(password === "daffa123"){
 
-        document.getElementById("loginScreen")
-          .style.display = "none";
+        // SIMPAN LOGIN
+        localStorage.setItem(
+          "adminLoginTime",
+          Date.now()
+        );
+
+        loginScreen.style.display = "none";
 
       } else {
 
@@ -613,43 +629,97 @@
 
     }
 
+    // =========================
     // DEVICE DETECT
-    const isMobile =
-      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // =========================
 
-    document.getElementById("deviceType").innerHTML =
-      isMobile
-      ? "📱 Mobile Device"
-      : "💻 Desktop Device";
+    const userAgent =
+      navigator.userAgent;
 
-    // BROWSER DETECT
-    let browser = "Unknown Browser";
+    // DEVICE TYPE
+    let deviceType = "Desktop";
 
-    if(navigator.userAgent.includes("Chrome")){
+    if(/Android|iPhone|iPad|iPod/i.test(userAgent)){
+      deviceType = "Mobile";
+    }
+
+    // DEVICE NAME
+    let deviceName = "Unknown Device";
+
+    if(userAgent.includes("Samsung")){
+      deviceName = "Samsung";
+    }
+    else if(userAgent.includes("Xiaomi")){
+      deviceName = "Xiaomi";
+    }
+    else if(userAgent.includes("Redmi")){
+      deviceName = "Redmi";
+    }
+    else if(userAgent.includes("OPPO")){
+      deviceName = "OPPO";
+    }
+    else if(userAgent.includes("Vivo")){
+      deviceName = "Vivo";
+    }
+    else if(userAgent.includes("Realme")){
+      deviceName = "Realme";
+    }
+    else if(userAgent.includes("iPhone")){
+      deviceName = "iPhone";
+    }
+    else if(userAgent.includes("Windows")){
+      deviceName = "Windows PC";
+    }
+    else if(userAgent.includes("Mac")){
+      deviceName = "MacBook";
+    }
+
+    // BROWSER
+    let browser = "Unknown";
+
+    if(userAgent.includes("Chrome")){
       browser = "Chrome";
     }
-    else if(navigator.userAgent.includes("Firefox")){
+    else if(userAgent.includes("Firefox")){
       browser = "Firefox";
     }
-    else if(navigator.userAgent.includes("Safari")){
+    else if(userAgent.includes("Safari")){
       browser = "Safari";
     }
+    else if(userAgent.includes("Edge")){
+      browser = "Edge";
+    }
 
-    document.getElementById("browser").innerHTML =
-      browser;
+    // =========================
+    // TAMPILKAN DATA
+    // =========================
 
-    // PLATFORM
-    document.getElementById("platform").innerHTML =
-      navigator.platform;
+    document.getElementById("deviceType")
+      .innerHTML =
+      deviceType === "Mobile"
+      ? "📱 Mobile"
+      : "💻 Desktop";
 
+    document.getElementById("browser")
+      .innerHTML = browser;
+
+    document.getElementById("platform")
+      .innerHTML = deviceName;
+
+    // =========================
     // VISITOR COUNT
+    // =========================
+
     const visitor =
       localStorage.getItem("portfolioVisitor") || 0;
 
     document.getElementById("visitorCount")
       .innerHTML = visitor;
 
-    // REALTIME LOG
+    // =========================
+    // REALTIME ACTIVITY
+    // =========================
+
     const logContainer =
       document.getElementById("logContainer");
 
@@ -663,7 +733,7 @@
 
     div.innerHTML = `
       <span>
-        Visitor joined website at ${time}
+        ${deviceName} opened website at ${time}
       </span>
 
       <span class="online">
