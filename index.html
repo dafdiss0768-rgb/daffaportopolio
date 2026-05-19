@@ -634,6 +634,143 @@
 
 </script>
 
+<script>
+
+  // CEGAH DOUBLE HIT
+  const sudahVisit =
+    sessionStorage.getItem("sudahVisit");
+
+  if(!sudahVisit){
+
+    sessionStorage.setItem(
+      "sudahVisit",
+      "true"
+    );
+
+    // =========================
+    // TOTAL VISITOR
+    // =========================
+
+    let total =
+      localStorage.getItem("portfolioVisitor") || 0;
+
+    total++;
+
+    localStorage.setItem(
+      "portfolioVisitor",
+      total
+    );
+
+    // =========================
+    // DETEKSI DEVICE
+    // =========================
+
+    const userAgent =
+      navigator.userAgent;
+
+    let perangkat =
+      "💻 Komputer";
+
+    if(/Android|iPhone|iPad|iPod/i.test(userAgent)){
+
+      perangkat =
+        "📱 HP";
+
+    }
+
+    // =========================
+    // DETEKSI BROWSER
+    // =========================
+
+    let browser =
+      "Browser Tidak Diketahui";
+
+    if(userAgent.includes("SamsungBrowser")){
+
+      browser =
+        "Samsung Internet";
+
+    }
+    else if(userAgent.includes("Edg")){
+
+      browser =
+        "Microsoft Edge";
+
+    }
+    else if(userAgent.includes("OPR")){
+
+      browser =
+        "Opera";
+
+    }
+    else if(userAgent.includes("Firefox")){
+
+      browser =
+        "Firefox";
+
+    }
+    else if(userAgent.includes("Chrome")){
+
+      browser =
+        "Google Chrome";
+
+    }
+    else if(userAgent.includes("Safari")){
+
+      browser =
+        "Safari";
+
+    }
+
+    // =========================
+    // AMBIL LOG LAMA
+    // =========================
+
+    let logs =
+      JSON.parse(
+        localStorage.getItem("visitorLogs")
+      ) || [];
+
+    // =========================
+    // DATA BARU
+    // =========================
+
+    const sekarang =
+      new Date();
+
+    const visitorBaru = {
+
+      perangkat: perangkat,
+
+      browser: browser,
+
+      tanggal:
+        sekarang.toLocaleDateString("id-ID"),
+
+      waktu:
+        sekarang.toLocaleTimeString("id-ID")
+
+    };
+
+    // MASUKIN KE LIST
+    logs.unshift(visitorBaru);
+
+    // BATASI 50 LOG
+    if(logs.length > 50){
+
+      logs.pop();
+
+    }
+
+    // SIMPAN
+    localStorage.setItem(
+      "visitorLogs",
+      JSON.stringify(logs)
+    );
+
+  }
+
+</script>
 
 </body>
 
