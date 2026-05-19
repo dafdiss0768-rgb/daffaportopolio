@@ -551,53 +551,30 @@
 
   <script>
 
-    // =========================
-    // LOGIN ADMIN
-    // =========================
+  // =========================
+  // HITUNG PENGUNJUNG
+  // =========================
 
-    const layarLogin =
-      document.getElementById("loginScreen");
+  const sudahMasuk =
+    sessionStorage.getItem("sudahMasuk");
 
-    const waktuSession =
-      4 * 60 * 1000;
+  if(!sudahMasuk){
 
-    const loginTersimpan =
-      localStorage.getItem("adminLoginTime");
+    sessionStorage.setItem(
+      "sudahMasuk",
+      "true"
+    );
 
-    if(loginTersimpan){
+    // TOTAL VISITOR
+    let total =
+      localStorage.getItem("portfolioVisitor") || 0;
 
-      const sekarang = Date.now();
+    total++;
 
-      if(sekarang - loginTersimpan < waktuSession){
-
-        layarLogin.style.display = "none";
-
-      }
-
-    }
-
-    function checkPassword(){
-
-      const password =
-        document.getElementById("adminPassword").value;
-
-      if(password === "daffa123"){
-
-        localStorage.setItem(
-          "adminLoginTime",
-          Date.now()
-        );
-
-        layarLogin.style.display = "none";
-
-      } else {
-
-        document.getElementById("errorText")
-          .style.display = "block";
-
-      }
-
-    }
+    localStorage.setItem(
+      "portfolioVisitor",
+      total
+    );
 
     // =========================
     // DETEKSI DEVICE
@@ -606,18 +583,20 @@
     const userAgent =
       navigator.userAgent;
 
-    // TIPE DEVICE
-    let tipePerangkat =
+    let device =
       "💻 Komputer";
 
     if(/Android|iPhone|iPad|iPod/i.test(userAgent)){
 
-      tipePerangkat =
+      device =
         "📱 HP";
 
     }
 
+    // =========================
     // DETEKSI BROWSER
+    // =========================
+
     let browser =
       "Browser Tidak Diketahui";
 
@@ -631,7 +610,7 @@
       browser = "Microsoft Edge";
 
     }
-    else if(userAgent.includes("OPR") || userAgent.includes("Opera")){
+    else if(userAgent.includes("OPR")){
 
       browser = "Opera";
 
@@ -652,111 +631,46 @@
 
     }
 
-    // TAMPILKAN
-    document.getElementById("deviceType")
-      .innerHTML =
-      tipePerangkat;
-
-    document.getElementById("browser")
-      .innerHTML =
-      browser;
-
     // =========================
-    // TOTAL PENGUNJUNG
+    // SIMPAN LOG
     // =========================
 
-    const totalPengunjung =
-      localStorage.getItem("portfolioVisitor") || 0;
-
-    document.getElementById("visitorCount")
-      .innerHTML =
-      totalPengunjung;
-
-    // =========================
-    // LOG PENGUNJUNG
-    // =========================
-
-    const logContainer =
-      document.getElementById("logContainer");
-
-    let daftarLog =
+    let logs =
       JSON.parse(localStorage.getItem("visitorLogs"))
       || [];
 
-    // CEK SESSION
-    const visitorSudahMasuk =
-      sessionStorage.getItem("visitorActive");
+    const sekarang =
+      new Date();
 
-    // HANYA 1X PER TAB
-    if(!visitorSudahMasuk){
+    const data = {
 
-      sessionStorage.setItem(
-        "visitorActive",
-        "true"
-      );
+      perangkat: device,
+      browser: browser,
+      tanggal:
+        sekarang.toLocaleDateString("id-ID"),
 
-      const sekarang =
-        new Date();
+      waktu:
+        sekarang.toLocaleTimeString("id-ID")
 
-      const waktuMasuk =
-        sekarang.toLocaleTimeString("id-ID");
+    };
 
-      const tanggalMasuk =
-        sekarang.toLocaleDateString("id-ID");
+    logs.unshift(data);
 
-      const dataBaru = {
+    // BATASI LOG
+    if(logs.length > 30){
 
-        perangkat: tipePerangkat,
-        browser: browser,
-        waktu: waktuMasuk,
-        tanggal: tanggalMasuk
-
-      };
-
-      daftarLog.unshift(dataBaru);
-
-      // BATASI 30 LOG
-      if(daftarLog.length > 30){
-
-        daftarLog.pop();
-
-      }
-
-      localStorage.setItem(
-        "visitorLogs",
-        JSON.stringify(daftarLog)
-      );
+      logs.pop();
 
     }
 
-    // TAMPILKAN LOG
-    logContainer.innerHTML = "";
+    localStorage.setItem(
+      "visitorLogs",
+      JSON.stringify(logs)
+    );
 
-    daftarLog.forEach((item) => {
+  }
 
-      const div =
-        document.createElement("div");
-
-      div.classList.add("log-item");
-
-      div.innerHTML = `
-        <span>
-          ${item.perangkat}
-          masuk ke website
-          pada ${item.tanggal}
-          jam ${item.waktu}
-        </span>
-
-        <span class="online">
-          ${item.browser}
-        </span>
-      `;
-
-      logContainer.appendChild(div);
-
-    });
-
-  </script>
+</script>
 
 </body>
 
