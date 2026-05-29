@@ -128,3 +128,30 @@ closeGallery.addEventListener("click", () => {
   });
 
 });
+
+// =========================
+// AUTO CHANGE IMAGE
+// =========================
+
+const secretImage = document.getElementById("secretImage");
+
+const images = [
+  "img/12.png",
+  "img/3.png",
+  "img/1.png",
+  "img/2.png"
+];
+
+let imageIndex = 0;
+
+setInterval(() => {
+
+  imageIndex++;
+
+  if(imageIndex >= images.length){
+    imageIndex = 0;
+  }
+
+  secretImage.src = images[imageIndex];
+
+}, 3000); // 3000 = 3 detik
